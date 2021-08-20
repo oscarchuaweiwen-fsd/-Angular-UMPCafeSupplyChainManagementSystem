@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.css';
 
+.icon-email.ng-touched.ng-pristine.ng-invalid{
+    border:2px solid #ff465f;
+}
+
+.icon-password.ng-pristine.ng-invalid.ng-touched{
+    border:2px solid #ff465f;
+}
 
 body{
     

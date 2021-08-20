@@ -48,7 +48,7 @@ body {
 
 input {
   display: block;
-  padding: 10px;
+  padding: 5px;
   width: 100%;
   border-radius: 4px !important;
   border: none;
@@ -95,11 +95,19 @@ button {
   border: none;
   background-color: #5d5c61;
   color: white;
+  transition: all 200ms ease-in;
 }
 
 button:hover {
   background: #505055;
+  
 }
+
+button:disabled{
+  background:grey;
+}
+
+
 
 svg {
   position: absolute;

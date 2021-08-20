@@ -1,45 +1,93 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Sora:wght@300&display=swap"
+  rel="stylesheet"
+/>
 
 <body>
-    <div class="container">
-        <div class="title">
-            <h1>
-              UMP Supply Chain <br />
-              Management System
-            </h1>
-          </div>
-      
-
-
-
-          <div class="login">
-            <h2>User Login</h2>
-            <form action="">
-              <input
-                class="icon-email"
-                type="text"
-                style=""
-                name=""
-                id=""
-                placeholder="Email Address"
-              />
-              <input type="password" name="" id="" placeholder="Password" />
-                
-              <div class="special">
-                <a href="" class="new-user">New User? Create one!</a>
-              <a href="" class="forgot-password">Forgot Password?</a>
-              </div>
-              
-      
-              <button>Login</button>
-            </form>
-          </div>
-
+  <div class="container">
+    <div class="title">
+      <h1>
+        UMP Supply Chain <br />
+        Management System
+      </h1>
     </div>
-   
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f3f4f5" fill-opacity="1" d="M0,160L40,186.7C80,213,160,267,240,250.7C320,235,400,149,480,101.3C560,53,640,43,720,69.3C800,96,880,160,960,165.3C1040,171,1120,117,1200,85.3C1280,53,1360,43,1400,37.3L1440,32L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"></path></svg>
-    
-  
+
+    <div class="login">
+      <h3>User Login</h3>
+      <form [formGroup]="form">
+
+        <div
+          class="alert alert-danger"
+          *ngIf="form.errors?.emailVerify == true"
+        >
+          Please verify your email address.
+        </div>
+        <div
+          class="alert alert-danger"
+          *ngIf="form.errors?.wrongpassword == true"
+        >
+          Your password is invalid.
+        </div>
+
+        <div>
+          <input
+            class="icon-email"
+            type="email"
+            style=""
+            name="email"
+            formControlName="email"
+            placeholder="Email Address"
+            [(ngModel)]="email"
+            required
+          />
+
+          <div *ngIf="emailaddress.touched && emailaddress.invalid">
+            <div
+              class="alert alert-danger"
+              *ngIf="emailaddress.errors.required"
+            >
+              Email Address is required.
+            </div>
+            <div class="alert alert-danger" *ngIf="emailaddress.errors.email">
+              Formatting of Email Address <br />
+              is incorrect.
+            </div>
+          </div>
+        </div>
+
+
+        <input
+          class="icon-password"
+          type="password"
+          name="password"
+          placeholder="Password"
+          formControlName="password"
+          required
+        />
+
+        <div *ngIf="getpassword.touched && getpassword.invalid">
+          <div class="alert alert-danger" *ngIf="getpassword.errors.required">
+            Password is required.
+          </div>
+        </div>
+
+        <div class="special">
+          <a routerLink="/register" class="new-user">New User? Create one!</a>
+          <a href="" class="forgot-password">Forgot Password?</a>
+        </div>
+
+        <button [disabled]="form.invalid" (click)="login()">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path
+      fill="#f3f4f5"
+      fill-opacity="1"
+      d="M0,160L40,186.7C80,213,160,267,240,250.7C320,235,400,149,480,101.3C560,53,640,43,720,69.3C800,96,880,160,960,165.3C1040,171,1120,117,1200,85.3C1280,53,1360,43,1400,37.3L1440,32L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+    ></path>
+  </svg>
 </body>

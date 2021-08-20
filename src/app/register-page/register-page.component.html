@@ -1,0 +1,167 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Sora:wght@300&display=swap"
+  rel="stylesheet"
+/>
+
+<body>
+  <div class="container">
+    <div class="title">
+      <h1>
+        UMP Supply Chain <br />
+        Management System
+      </h1>
+    </div>
+
+    <div class="registration">
+      <h3>Sign Up</h3>
+
+      <form [formGroup]="form1">
+        <input
+          class="icon-email"
+          type="text"
+          style=""
+          name=""
+          placeholder="Email Address"
+          formControlName="remail"
+          required
+        />
+
+        <div *ngIf="e.touched && e.invalid">
+          <div class="alert alert-danger" *ngIf="e.errors.required">
+            Email Address is required.
+          </div>
+          <div class="alert alert-danger" *ngIf="e.errors.email">
+            Formatting of Email Address is invalid.
+          </div>
+        </div>
+
+        <div class="alert alert-danger" *ngIf="form1.errors?.emailExist">
+          Email Address is existed.
+        </div>
+
+        <input
+          type="password"
+          name="rpassword"
+          placeholder="Password"
+          required
+          formControlName="rpassword"
+          class="i"
+        />
+
+        <div *ngIf="p.touched && p.invalid">
+          <div class="alert alert-danger" *ngIf="p.errors.required">
+            Password is required. 
+          </div>
+        </div>
+
+
+        <input
+          type="password"
+          name="rconfirmpassword"
+          placeholder="Confirm Password"
+          required
+          formControlName="rconfirmpassword"
+          class="i"
+        />
+
+        <div *ngIf="cp.touched && cp.invalid">
+          <div class="alert alert-danger" *ngIf="cp.errors.required">
+            Confirm Password is required.
+          </div>
+        </div>
+
+        <div
+          class="alert alert-danger"
+          *ngIf="form1.errors?.passwordVerification && cp.valid && p.valid"
+        >
+          Password is not matched.
+        </div>
+
+        <input
+          type="text"
+          name=""
+          placeholder="Name"
+          formControlName="name"
+          required
+          appRegisterD
+          class="i"
+        />
+
+        <div *ngIf="name.touched && name.invalid">
+          <div class="alert alert-danger" *ngIf="name.errors.required">
+            Name is required.
+          </div>
+        </div>
+
+        <input
+          type="text"
+          placeholder="Phone Number"
+          formControlName="phonenumber"
+          required
+          class="i"
+        />
+
+        <div *ngIf="pn.touched && pn.invalid">
+          <div class="alert alert-danger" *ngIf="pn.errors.required">Phone Number is required.</div>
+        </div>
+
+        <input
+          type="date"
+          placeholder="Date"
+          formControlName="date"
+          (change)="getDate($event)"
+          required
+          class="i"
+        />
+
+        <div *ngIf="d.touched && d.invalid">
+          <div class="alert alert-danger" *ngIf="d.errors.required">
+            Date of Birth is required.
+          </div>
+        </div>
+
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          (change)="getGender($event)"
+    
+          required
+        >
+          <option selected>Gender</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
+
+        <div *ngIf=""></div>
+
+        <select
+          class="form-select mt-2"
+          aria-label="Default select example"
+          (change)="getRole($event)"
+          required
+          
+        >
+          <option selected>Role</option>
+          <option value="1">Student</option>
+          <option value="2">Supplier</option>
+        </select>
+
+        <div class="special">
+          <a routerLink="/" class="new-user">Already Registered? Login Now!</a>
+        </div>
+
+        <button [disabled]="form1.invalid" (click)="submit()">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path
+      fill="#f3f4f5"
+      fill-opacity="1"
+      d="M0,160L40,186.7C80,213,160,267,240,250.7C320,235,400,149,480,101.3C560,53,640,43,720,69.3C800,96,880,160,960,165.3C1040,171,1120,117,1200,85.3C1280,53,1360,43,1400,37.3L1440,32L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+    ></path>
+  </svg>
+</body>
