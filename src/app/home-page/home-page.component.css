@@ -44,6 +44,23 @@ body {
 .title {
   text-shadow: 4px 4px 2px #5d5c61;
   z-index: 999;
+  margin-left:10%;
+  position:relative;
+}
+
+.title::before,.title::after{
+  content: "";
+  display:block;
+  border:1px solid white;
+
+}
+
+img{
+  position:absolute;
+  left:-12rem;
+  border-radius: 50%;
+  top:-2.5rem;
+  z-index:-999;
 }
 
 input {
@@ -58,6 +75,26 @@ input {
 input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(21, 156, 228, 0.4);
+}
+
+.visible{
+  position: relative;
+}
+
+.far.fa-eye{
+  position: absolute;
+  right:0;
+  margin-right:10px;
+  top:30%;
+  color:black;
+}
+
+.far.fa-eye-slash{
+  position: absolute;
+  right:0;
+  margin-right:10px;
+  top:30%;
+  color:black;
 }
 
 .special{
@@ -107,6 +144,64 @@ button:disabled{
   background:grey;
 }
 
+p{
+  font-size: 12px;
+  height:1px;
+  margin-top:-10px;
+  color:red;
+
+}
+
+.error{
+  position: relative;
+}
+
+#tooltip{
+  position: absolute;
+  right:0;
+  margin-right:10px;
+  top:30%;
+  color:red;
+  transition:  300ms all ease-in-out;
+}
+
+#tooltip2{
+  position: absolute;
+  right:1.4rem;
+  margin-right:10px;
+  bottom:1.2rem;
+  color:red;
+  transition:  300ms all ease-in-out;
+}
+
+#tooltip:hover::after{
+  content:attr(data-tooltip);
+  display:block;
+  position:absolute;
+  right:0;
+  z-index:999;
+  background-color:rgb(252, 118, 118,0.8);
+  margin-top:-3rem;
+  width:max-content;
+  height:auto;
+  color:white;
+  padding:10px;
+}
+
+#tooltip2:hover::after{
+  content:attr(data-tooltip);
+  display:block;
+  position:absolute;
+  right:0;
+  z-index:999;
+  background-color:rgb(252, 118, 118,0.8);
+  margin-top:-3rem;
+  width:max-content;
+  height:auto;
+  color:white;
+  padding:10px;
+}
+
 
 
 svg {
@@ -130,5 +225,23 @@ svg {
   h1 {
     text-align: center;
   }
+  
+  .title{
+    right:1rem;
+  }
 
+  img{
+    position:absolute;
+    left:3.5rem;
+    top:-12rem;
+    z-index:-999;
+  }
+
+  .login{
+    margin-top:10px;
+  }
+  
+  .title{
+    margin-top:100px;
+  }
 }

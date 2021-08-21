@@ -14,7 +14,7 @@ export class RegisterPageComponent implements OnInit {
   date: any;
   form1: any;
   gender: any;
-
+  visibility: any =true;
   constructor(private fb: FormBuilder, private auth: AngularFireAuth) {
     this.form1 = fb.group(
       {
@@ -33,6 +33,12 @@ export class RegisterPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
+
+  // toggle visibility of password function
+  onVisible(){
+    this.visibility = !this.visibility;
+  }
+  
   getRole($event: any) {
     this.role = $event.target.value;
 

@@ -5,19 +5,32 @@
   rel="stylesheet"
 />
 
+
+
 <body>
   <div class="container">
+    <!-- title -->
     <div class="title">
+      <!-- logo -->
+      <img
+        src="https://i.ibb.co/v1fQ3JN/Whats-App-Image-2021-08-20-at-11-40-42-AM.jpg"
+        alt=""
+      />
+
       <h1>
         UMP Supply Chain <br />
         Management System
       </h1>
     </div>
 
+    <!-- login -->
     <div class="login">
+      <!-- login title -->
       <h3>User Login</h3>
-      <form [formGroup]="form">
 
+      <!-- form -->
+      <form [formGroup]="form">
+        <!-- form verification errors message -->
         <div
           class="alert alert-danger"
           *ngIf="form.errors?.emailVerify == true"
@@ -30,8 +43,15 @@
         >
           Your password is invalid.
         </div>
+        <div
+          class="alert alert-danger"
+          *ngIf="form.errors?.notregister == true"
+        >
+          Your email address is not registered.
+        </div>
 
-        <div>
+        <!-- email address -->
+        <div class="error">
           <input
             class="icon-email"
             type="email"
@@ -43,46 +63,67 @@
             required
           />
 
-          <div *ngIf="emailaddress.touched && emailaddress.invalid">
-            <div
-              class="alert alert-danger"
+          <!-- email address verification error message -->
+          <div *ngIf="emailaddress.invalid && emailaddress.touched">
+            <i
+              class="fas fa-exclamation-triangle"
+              id="tooltip"
               *ngIf="emailaddress.errors.required"
-            >
-              Email Address is required.
-            </div>
-            <div class="alert alert-danger" *ngIf="emailaddress.errors.email">
-              Formatting of Email Address <br />
-              is incorrect.
-            </div>
+              data-tooltip=" Email Address is required."
+            ></i>
+            <i
+              class="fas fa-exclamation-triangle"
+              id="tooltip"
+              *ngIf="emailaddress.errors.email"
+              data-tooltip="  Formatting of Email Address
+            is incorrect."
+            ></i>
           </div>
         </div>
 
+        <!-- password -->
+        <div class="visible">
+          <input
+            class="icon-password"
+            [type]="visibility ? 'password' : 'text'"
+            name="password"
+            placeholder="Password"
+            formControlName="password"
+            required
+          />
 
-        <input
-          class="icon-password"
-          type="password"
-          name="password"
-          placeholder="Password"
-          formControlName="password"
-          required
-        />
-
-        <div *ngIf="getpassword.touched && getpassword.invalid">
-          <div class="alert alert-danger" *ngIf="getpassword.errors.required">
-            Password is required.
-          </div>
+          <i
+            class="far"
+            [ngClass]="{ 'fa-eye': !visibility, 'fa-eye-slash': visibility }"
+            (click)="onVisible()"
+          ></i>
         </div>
 
+        <!-- password verification error message -->
+        <div class="error" *ngIf="getpassword.touched && getpassword.invalid">
+          <i
+          class="fas fa-exclamation-triangle"
+          id="tooltip2"
+          *ngIf="getpassword.errors.required"
+          data-tooltip=" Password is required."
+        ></i>
+        </div>
+
+        <!-- navigation -->
         <div class="special">
           <a routerLink="/register" class="new-user">New User? Create one!</a>
-          <a href="" class="forgot-password">Forgot Password?</a>
+          <a routerLink="/forgotpassword" class="forgot-password"
+            >Forgot Password?</a
+          >
         </div>
 
+        <!-- button action -->
         <button [disabled]="form.invalid" (click)="login()">Login</button>
       </form>
     </div>
   </div>
 
+  <!-- background shape -->
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path
       fill="#f3f4f5"

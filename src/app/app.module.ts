@@ -12,13 +12,15 @@ import { MatPasswordStrengthModule } from "@angular-material-extensions/password
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { RegisterPipePipe } from './register-pipe.pipe';
 import { RegisterDDirective } from './register-d.directive';
+import { ForgotpasswordPageComponent } from './forgotpassword-page/forgotpassword-page.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     RegisterPageComponent,
     RegisterPipePipe,
-    RegisterDDirective
+    RegisterDDirective,
+    ForgotpasswordPageComponent
   ],
   imports: [
     BrowserModule,

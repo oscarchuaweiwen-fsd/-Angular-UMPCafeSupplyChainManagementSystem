@@ -7,58 +7,91 @@
 
 <body>
   <div class="container">
+    <!-- title -->
     <div class="title">
+      <!-- logo -->
+      <img src="https://i.ibb.co/v1fQ3JN/Whats-App-Image-2021-08-20-at-11-40-42-AM.jpg" alt="">
+      
       <h1>
         UMP Supply Chain <br />
         Management System
       </h1>
     </div>
 
+    <!-- registration -->
     <div class="registration">
+      <!-- registration title -->
       <h3>Sign Up</h3>
 
+      <!-- form -->
       <form [formGroup]="form1">
+
+        <!-- registration email address -->
         <input
           class="icon-email"
-          type="text"
-          style=""
-          name=""
+          type="text" 
           placeholder="Email Address"
           formControlName="remail"
           required
         />
 
-        <div *ngIf="e.touched && e.invalid">
-          <div class="alert alert-danger" *ngIf="e.errors.required">
-            Email Address is required.
-          </div>
-          <div class="alert alert-danger" *ngIf="e.errors.email">
-            Formatting of Email Address is invalid.
-          </div>
+        <!-- registration email address errors message  -->
+        <div class="error" *ngIf="e.touched && e.invalid">
+          
+          <i
+              class="fas fa-exclamation-triangle"
+              id="tooltip"
+              *ngIf="e.errors.required"
+              data-tooltip="Email Address is required."
+            ></i>
+
+            <i
+            class="fas fa-exclamation-triangle"
+            id="tooltip"
+            *ngIf="e.errors.email"
+            data-tooltip="Formatting of Email Address is invalid."
+          ></i>
+          
+          
         </div>
 
+        <!-- Check email address exist on firebase -->
         <div class="alert alert-danger" *ngIf="form1.errors?.emailExist">
           Email Address is existed.
         </div>
 
-        <input
-          type="password"
-          name="rpassword"
-          placeholder="Password"
-          required
-          formControlName="rpassword"
-          class="i"
-        />
+        <!-- registration password -->
+        <div class="visible">
+          <input
+            [type]="visibility ? 'password' : 'text'"
+            name="rpassword"
+            placeholder="Password"
+            required
+            formControlName="rpassword"
+            class="i"
+          />
 
-        <div *ngIf="p.touched && p.invalid">
-          <div class="alert alert-danger" *ngIf="p.errors.required">
-            Password is required. 
-          </div>
+          <i
+            class="far"
+            [ngClass]="{ 'fa-eye': !visibility, 'fa-eye-slash': visibility }"
+            (click)="onVisible()"
+          ></i>
         </div>
 
+        <!-- registration password error message -->
+        <div class="error" *ngIf="p.touched && p.invalid">
+          <i
+          class="fas fa-exclamation-triangle"
+          id="tooltip2"
+          *ngIf="p.errors.required"
+          data-tooltip=" Password is required."
+        ></i>
+        </div>
 
-        <input
-          type="password"
+        <!-- registration confirm password -->
+        <div class="visible">
+          <input
+        [type]="visibility ? 'password' : 'text'"
           name="rconfirmpassword"
           placeholder="Confirm Password"
           required
@@ -66,19 +99,37 @@
           class="i"
         />
 
-        <div *ngIf="cp.touched && cp.invalid">
-          <div class="alert alert-danger" *ngIf="cp.errors.required">
-            Confirm Password is required.
-          </div>
+        <i
+            class="far"
+            [ngClass]="{ 'fa-eye': !visibility, 'fa-eye-slash': visibility }"
+            (click)="onVisible()"
+          ></i>
+        </div>
+        
+
+
+        <div class="error" *ngIf="cp.touched && cp.invalid">
+          <i
+          class="fas fa-exclamation-triangle"
+          id="tooltip2"
+          *ngIf="cp.errors.required"
+          data-tooltip=" Password is required."
+        ></i>
         </div>
 
+        <!-- check password matched or not-->
         <div
-          class="alert alert-danger"
+          class="error"
           *ngIf="form1.errors?.passwordVerification && cp.valid && p.valid"
         >
-          Password is not matched.
+        <i
+        class="fas fa-exclamation-triangle"
+        id="tooltip2"
+        data-tooltip=" Password is not matched."
+      ></i>
         </div>
 
+        <!-- name -->
         <input
           type="text"
           name=""
@@ -89,12 +140,17 @@
           class="i"
         />
 
-        <div *ngIf="name.touched && name.invalid">
-          <div class="alert alert-danger" *ngIf="name.errors.required">
-            Name is required.
-          </div>
+        <!-- name verification error message -->
+        <div class="error" *ngIf="name.touched && name.invalid">
+          <i
+              class="fas fa-exclamation-triangle"
+              id="tooltip"
+              *ngIf="name.errors.required"
+              data-tooltip="Name is required."
+            ></i>
         </div>
 
+        <!-- phone number -->
         <input
           type="text"
           placeholder="Phone Number"
@@ -103,8 +159,14 @@
           class="i"
         />
 
-        <div *ngIf="pn.touched && pn.invalid">
-          <div class="alert alert-danger" *ngIf="pn.errors.required">Phone Number is required.</div>
+        <!-- phone number verification error message -->
+        <div class="error" *ngIf="pn.touched && pn.invalid">
+          <i
+              class="fas fa-exclamation-triangle"
+              id="tooltip"
+              *ngIf="pn.errors.required"
+              data-tooltip="Phone Number is required."
+            ></i>
         </div>
 
         <input
@@ -148,15 +210,18 @@
           <option value="2">Supplier</option>
         </select>
 
+        <!-- navigation -->
         <div class="special">
           <a routerLink="/" class="new-user">Already Registered? Login Now!</a>
         </div>
 
+        <!-- sign up action -->
         <button [disabled]="form1.invalid" (click)="submit()">Sign Up</button>
       </form>
     </div>
   </div>
 
+  <!-- background shape -->
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path
       fill="#f3f4f5"

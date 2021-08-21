@@ -10,11 +10,14 @@ import { validatorCustom } from './customValidator';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
+  // variables declaration
   email: string = '';
   password: string = '';
   errMessage: string = '';
   form:any;
+  visibility:boolean = true;
 
+  // calling api
   constructor(private fAuth:AngularFireAuth,private fb:FormBuilder) {
     this.form = fb.group({
       email:['',[Validators.required,Validators.email]],
@@ -25,7 +28,12 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // toggle visibility of password function
+  onVisible(){
+    this.visibility = !this.visibility;
+  }
 
+  // login function
   login(){
     
     console.log(this.form);
@@ -33,16 +41,21 @@ export class HomePageComponent implements OnInit {
       console.log(res);
       
       if(!res.user?.emailVerified){
-        this.form.setErrors({'emailVerify':true,'wrongpassword':false});
+        this.form.setErrors({'emailVerify':true,'wrongpassword':false,'notregister':false});
       }
     }).catch(err => {
       if(err.code === "auth/wrong-password"){
-        this.form.setErrors({'wrongpassword':true});
+        this.form.setErrors({'wrongpassword':true,'notregister':false});
+      }
+
+      if(err.code === "auth/user-not-found"){
+        this.form.setErrors({'notregister':true,'wrongpassword':false});
       }
     })
 
   }
 
+  //return the form control name
   get emailaddress(){
     return this.form.get('email');
   }
