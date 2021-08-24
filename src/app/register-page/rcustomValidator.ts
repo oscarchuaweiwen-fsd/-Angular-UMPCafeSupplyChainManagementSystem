@@ -14,4 +14,24 @@ export class rcustomValidation {
       return null;
     }
   }
+
+  static checkRole(ac:AbstractControl):ValidationErrors|null{
+    if(ac.value === "Role"){
+      console.log("Role");
+      return {checkRole: true};
+    }else{
+      return null;
+    }
+
+  }
+
+  static checkGender(ac:AbstractControl):ValidationErrors|null{
+    if(ac.value === "Gender"){
+      console.log("Gender");
+      return {gender: true};
+    }else{
+      return null;
+    }
+
+  }
 }

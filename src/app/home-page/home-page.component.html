@@ -5,8 +5,6 @@
   rel="stylesheet"
 />
 
-
-
 <body>
   <div class="container">
     <!-- title -->
@@ -21,6 +19,8 @@
         UMP Supply Chain <br />
         Management System
       </h1>
+
+      
     </div>
 
     <!-- login -->
@@ -28,14 +28,17 @@
       <!-- login title -->
       <h3>User Login</h3>
 
+     
+
       <!-- form -->
       <form [formGroup]="form">
         <!-- form verification errors message -->
         <div
           class="alert alert-danger"
-          *ngIf="form.errors?.emailVerify == true"
+          *ngIf="form.error?.emailVerify"
         >
           Please verify your email address.
+        <a class="link" (click)="sendVerifyEmail()"> Click</a> Here to send the verification email again.
         </div>
         <div
           class="alert alert-danger"
@@ -102,11 +105,11 @@
         <!-- password verification error message -->
         <div class="error" *ngIf="getpassword.touched && getpassword.invalid">
           <i
-          class="fas fa-exclamation-triangle"
-          id="tooltip2"
-          *ngIf="getpassword.errors.required"
-          data-tooltip=" Password is required."
-        ></i>
+            class="fas fa-exclamation-triangle"
+            id="tooltip2"
+            *ngIf="getpassword.errors.required"
+            data-tooltip=" Password is required."
+          ></i>
         </div>
 
         <!-- navigation -->

@@ -13,6 +13,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { RegisterPipePipe } from './register-pipe.pipe';
 import { RegisterDDirective } from './register-d.directive';
 import { ForgotpasswordPageComponent } from './forgotpassword-page/forgotpassword-page.component';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
+import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
+import { AdminAuthGuard } from './adminauthguard.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +28,8 @@ import { ForgotpasswordPageComponent } from './forgotpassword-page/forgotpasswor
     RegisterPageComponent,
     RegisterPipePipe,
     RegisterDDirective,
-    ForgotpasswordPageComponent
+    ForgotpasswordPageComponent,
+    AdminHomePageComponent
   ],
   imports: [
     BrowserModule,
@@ -30,10 +39,13 @@ import { ForgotpasswordPageComponent } from './forgotpassword-page/forgotpasswor
     FormsModule,
     ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     MatPasswordStrengthModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule
 
   ],
-  providers: [],
+  providers: [AuthGuard,AuthService,AdminAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

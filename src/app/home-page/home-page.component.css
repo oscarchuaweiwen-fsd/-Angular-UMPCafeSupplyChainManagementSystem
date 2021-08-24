@@ -20,6 +20,10 @@ body {
   z-index: 999;
 }
 
+.alert.alert-danger{
+  text-align:justify;
+}
+
 .login {
   background: #b1a296;
   padding: 20px 40px 10px 20px;
@@ -123,9 +127,14 @@ a {
   text-decoration: none;
 }
 
+.link{
+  color:red;
+  text-decoration: underline;
+  margin:0;
+}
 button {
   display: block;
-  margin: 10px 10px 25px 10px;
+  margin: 10px 10px 1rem 2px;
   padding: 10px;
   width: 100%;
   border-radius: 4px;
