@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm" [style.background]="'#b8ab97'">
+    <div class="container-fluid">
+      <img src="https://i.ibb.co/v1fQ3JN/Whats-App-Image-2021-08-20-at-11-40-42-AM.jpg" alt="">
+      <a class="navbar-brand"  routerLink="/adminpage">UMP SCMS</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" routerLinkActive="active"  aria-current="page" routerLink="/adminpage">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" routerLink="/adminmanageinv">Manage Inventory</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+     
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{(username$ |async)?.username}}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">My Profile</a></li>
+                <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+             
+              </ul>
+            </li>
+  
+          
+        </ul>
+      </div>
+    </div>
+  </nav>

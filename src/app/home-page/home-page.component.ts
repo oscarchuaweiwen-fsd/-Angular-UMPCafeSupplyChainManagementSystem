@@ -70,6 +70,7 @@ export class HomePageComponent implements OnInit {
         notregister: false,
       });
     } else if (this.service.passwordVerified === false) {
+      console.log("wrong password ts")
       this.form.setErrors({ wrongpassword: true, notregister: false });
     } else if (this.service.userVerified === false) {
       this.form.setErrors({ notregister: true, wrongpassword: false });

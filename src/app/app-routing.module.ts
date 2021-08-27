@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { component } from 'vue/types/umd';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
+import { AdminManageInventoryComponent } from './admin-manage-inventory/admin-manage-inventory.component';
 import { AdminAuthGuard } from './adminauthguard.service';
 
 import { AuthGuard } from './auth-guard.service';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterPageComponent },
   { path: 'forgotpassword', component: ForgotpasswordPageComponent},
   { path: 'adminpage', component: AdminHomePageComponent, canActivate: [AuthGuard,AdminAuthGuard] },
+  {path:'adminmanageinv',component: AdminManageInventoryComponent,canActivate: [AuthGuard,AdminAuthGuard]}
 ];
 
 @NgModule({

@@ -138,7 +138,7 @@ export class AuthService {
   async getAdminStatus(): Promise<any> {
     return new Promise((resolve) => {
       this.admin$ = this.firestore
-        .collection('Student')
+        .collection('Admin')
         .doc(this.uid)
         .valueChanges();
 
