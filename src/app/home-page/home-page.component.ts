@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { from, Observable } from 'rxjs';
 import { map, switchAll, switchMap } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../authService/auth.service';
 import { validatorCustom } from './customValidator';
 
 @Component({

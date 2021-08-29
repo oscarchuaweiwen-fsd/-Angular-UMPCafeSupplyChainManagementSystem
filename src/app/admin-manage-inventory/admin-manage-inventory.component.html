@@ -1,20 +1,20 @@
 <body>
   <app-adminnavbarpage></app-adminnavbarpage>
 
-  <div *ngIf="admins.isLoading | async" class="loader-container">
+  <div *ngIf="isLoading2| async" class="loader-container">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div class="title">
     <h4 id="invtitle">Manage Inventory</h4>
-    <button id="add" mat-raised-button>ADD ORDER</button>
+    <button id="add" mat-raised-button routerLink="/adminaddorder">ADD ORDER</button>
   </div>
   
   <mat-form-field appearance="standard" id="filter">
-    <mat-label>Filter</mat-label>
+    <mat-label><i class="fas fa-search"></i>  Search</mat-label>
     <input
       matInput
       (keyup)="applyFilter($event)"
-      placeholder="Ex. ium"
+      placeholder="Ex. Egg"
       #input
     />
   </mat-form-field>
@@ -33,6 +33,7 @@
         <ng-container matColumnDef="id"  >
           <th mat-header-cell *matHeaderCellDef mat-sort-header [style.width]="'30%'">Item Name</th>
           <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      
         </ng-container>
       </div>
       
@@ -52,7 +53,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>&emsp; Action</th>
         <td mat-cell *matCellDef="let element">
-          <button routerLink="/adminpage" mat-raised-button>VIEW HISTORY</button>
+          <button [routerLink]="['/adminviewhistory/' , element.id]" mat-raised-button>VIEW HISTORY</button>
           <button mat-raised-button (click)="delete(element.id)"  [disabled]="element.key>0">DELETE</button>
         </td>
       </ng-container>
@@ -71,6 +72,8 @@
       aria-label="Select page of periodic elements"
     >
     </mat-paginator>
-
+   
   </div>
+
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </body>

@@ -34,4 +34,24 @@ export class rcustomValidation {
     }
 
   }
+
+  static checkMatricCard(ac:AbstractControl):ValidationErrors|null{
+    if(ac.value === "Matric Card Number"){
+      console.log("Matric Card Number");
+      return {checkMatrixCard: true};
+    }else{
+      return null;
+    }
+
+  }
+
+  static checkCompanyName(ac:AbstractControl):ValidationErrors|null{
+    if(ac.value === "Company Name"){
+      console.log("Matrix Card");
+      return {checkMatrixCard: true};
+    }else{
+      return null;
+    }
+
+  }
 }

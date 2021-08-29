@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors } from "@angular/forms";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../authService/auth.service";
 
 
 export class validatorCustom {

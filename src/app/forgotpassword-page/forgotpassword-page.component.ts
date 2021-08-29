@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../authService/auth.service';
 
 @Component({
   selector: 'app-forgotpassword-page',
