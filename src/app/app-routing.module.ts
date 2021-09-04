@@ -16,6 +16,7 @@ import { StudentHomePageComponent } from './student-home-page/student-home-page.
 import { AdminProfilePageComponent } from './admin-profile-page/admin-profile-page.component';
 import { AdminPurChaseHistoryPageComponent } from './admin-pur-chase-history-page/admin-pur-chase-history-page.component';
 import { AdminAddOrderPageComponent } from './admin-add-order-page/admin-add-order-page.component';
+import { AdminCartPageComponent } from './admin-cart-page/admin-cart-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   {path:'supplierpage',component: SupplierHomePageComponent, canActivate: [AuthGuard,SupplierAuthGuard]},
   {path:'adminprofile',component:AdminProfilePageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminviewhistory/:id',component:AdminPurChaseHistoryPageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
-  {path:'adminaddorder',component:AdminAddOrderPageComponent,canActivate: [AuthGuard,AdminAuthGuard]}
+  {path:'adminaddorder',component:AdminAddOrderPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
+  {path:'admincartpage',component:AdminCartPageComponent,canActivate: [AuthGuard,AdminAuthGuard]}
 ];
 
 @NgModule({

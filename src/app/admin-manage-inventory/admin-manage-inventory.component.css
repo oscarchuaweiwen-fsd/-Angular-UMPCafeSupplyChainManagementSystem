@@ -61,3 +61,8 @@ button:disabled{
    top:8rem;
    
 }
+
+
+ngx-skeleton-loader{
+   z-index:99;
+}

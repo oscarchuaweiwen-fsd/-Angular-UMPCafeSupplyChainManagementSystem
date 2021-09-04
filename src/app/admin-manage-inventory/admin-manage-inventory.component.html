@@ -56,7 +56,10 @@
           <button [routerLink]="['/adminviewhistory/' , element.id]" mat-raised-button>VIEW HISTORY</button>
           <button mat-raised-button (click)="delete(element.id)"  [disabled]="element.key>0">DELETE</button>
         </td>
+
+      <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
       </ng-container>
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
@@ -74,6 +77,7 @@
     </mat-paginator>
    
   </div>
+  
 
   <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 </body>

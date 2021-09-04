@@ -1,7 +1,114 @@
 <body>
-    <app-adminnavbarpage></app-adminnavbarpage>
+  <app-adminnavbarpage></app-adminnavbarpage>
 
-    <ul>
-        <li  *ngFor="let over of overallmenu" >{{(over.brand)}}</li>
-    </ul>
+  <div class="content">
+    <div class="combine">
+      <div class="search">
+        <button
+          #menuTrigger="matMenuTrigger"
+          (mouseenter)="menuTrigger.openMenu()"
+          mat-button
+          [matMenuTriggerFor]="menu"
+          
+        >
+          <mat-icon
+            matBadge="{{ cartlength }}"
+            matBadgePosition="after"
+            matBadgeColor="accent"
+            >shopping_cart</mat-icon
+          >
+        </button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+          <span (mouseleave)="menuTrigger.closeMenu()">
+            <button mat-menu-item *ngFor="let row of filter3">
+              {{ row.brand }} ------> RM{{ row.price }}
+            </button>
+
+            <button *ngIf="filter3.length > 0" mat-raised-button routerLink="/admincartpage">View Cart</button>
+          </span>
+        </mat-menu>
+
+        <mat-form-field appearance="standard">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="Ex. Mia"
+            #input
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="filter">
+        <button (click)="filter()" mat-button [matMenuTriggerFor]="category">
+          Category
+        </button>
+        <mat-menu #category="matMenu">
+          <button
+            mat-menu-item
+            *ngFor="let category of newCategory"
+            (click)="filterCategory(category)"
+          >
+            {{ category }}
+          </button>
+          <button mat-menu-item (click)="filterCategory('clear')">Clear</button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8 table">
+      <table mat-table [dataSource]="dataSource" matSort width="100%">
+        <!-- ID Column -->
+        <ng-container matColumnDef="brand">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Product Name
+          </th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.brand }} <br />
+            {{ row.compname.compname }}
+          </td>
+          <ng-container matColumnDef="compname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Product Name
+            </th>
+            <td mat-cell *matCellDef="let row"></td>
+          </ng-container>
+        </ng-container>
+
+        <ng-container matColumnDef="rating">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Rating</th>
+          <td mat-cell *matCellDef="let row">{{ row.rating }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price/Item</th>
+          <td mat-cell *matCellDef="let row">{{ row.price }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
+          <td mat-cell *matCellDef="let row;">
+            <button (click)="addtocart(row.brand,row.price,row.compname.compname)" mat-raised-button>
+              Add to Cart
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            No data matching the filter "{{ input.value }}"
+          </td>
+        </tr>
+      </table>
+
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        aria-label="Select page of users"
+      ></mat-paginator>
+    </div>
+  </div>
 </body>

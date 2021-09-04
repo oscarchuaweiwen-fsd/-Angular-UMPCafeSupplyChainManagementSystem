@@ -1,0 +1,26 @@
+mgl-map {
+    height: 80%;
+    width: 50%;
+  }
+
+
+.table{
+    width:80%;
+    margin:auto;
+}
+
+.combine{
+    display:flex;
+    justify-content:space-around;
+    
+}
+
+.filter{
+    order:1;
+    margin-top:1.5rem;
+}
+
+.search{
+    order:2;
+    margin-left:5rem;
+}

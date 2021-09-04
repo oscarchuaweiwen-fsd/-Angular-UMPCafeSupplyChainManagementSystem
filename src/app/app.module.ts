@@ -27,7 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorserviceService } from './interceptorservice.service';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
@@ -47,6 +47,19 @@ import {MatIconModule} from '@angular/material/icon';
 import {PasswordModule} from 'primeng/password';
 import { AdminPurChaseHistoryPageComponent } from './admin-pur-chase-history-page/admin-pur-chase-history-page.component';
 import { AdminAddOrderPageComponent } from './admin-add-order-page/admin-add-order-page.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatSelectModule} from '@angular/material/select';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {ConnectionServiceModule} from 'ng-connection-service';
+import { AdminCartPageComponent } from './admin-cart-page/admin-cart-page.component';  
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
+import {MatCardModule} from '@angular/material/card';
+import {TableModule} from 'primeng/table';
+import {InputNumberModule} from 'primeng/inputnumber';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +75,8 @@ import { AdminAddOrderPageComponent } from './admin-add-order-page/admin-add-ord
     SupplierHomePageComponent,
     AdminProfilePageComponent,
     AdminPurChaseHistoryPageComponent,
-    AdminAddOrderPageComponent
+    AdminAddOrderPageComponent,
+    AdminCartPageComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +103,20 @@ import { AdminAddOrderPageComponent } from './admin-add-order-page/admin-add-ord
     AccordionModule,
     MessagesModule,
     MatIconModule,
-    PasswordModule
+    PasswordModule,
+    NgxSkeletonLoaderModule,
+    NgxMapboxGLModule.withConfig({accessToken:"pk.eyJ1Ijoib3NjYXJjaHVhd2Vpd2VuLWZzZCIsImEiOiJja3N4eXYycjgxYXp6Mm9wdTg5bTZ5eGUzIn0.uR8fYkY2kZhEjP43Cx-f6w",geocoderAccessToken:"pk.eyJ1Ijoib3NjYXJjaHVhd2Vpd2VuLWZzZCIsImEiOiJja3N4eXYycjgxYXp6Mm9wdTg5bTZ5eGUzIn0.uR8fYkY2kZhEjP43Cx-f6w"}),
+    HttpClientModule,
+    MatMenuModule,
+    MatBadgeModule,
+    MatSelectModule,
+    MatExpansionModule,
+    ConnectionServiceModule,
+    MatCheckboxModule,
+    NgxNumberSpinnerModule,
+    MatCardModule,
+    TableModule,
+    InputNumberModule
   ],
   providers: [
     AuthGuard,

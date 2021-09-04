@@ -1,0 +1,11 @@
+table{
+    width:100%;
+}
+
+input[type="number"]{
+    padding:10px;
+}
+
+p-inputNumber{
+    margin-left:-20px;
+}
