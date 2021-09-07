@@ -17,6 +17,8 @@ import { AdminProfilePageComponent } from './admin-profile-page/admin-profile-pa
 import { AdminPurChaseHistoryPageComponent } from './admin-pur-chase-history-page/admin-pur-chase-history-page.component';
 import { AdminAddOrderPageComponent } from './admin-add-order-page/admin-add-order-page.component';
 import { AdminCartPageComponent } from './admin-cart-page/admin-cart-page.component';
+import { AdminCheckOutPageComponent } from './admin-check-out-page/admin-check-out-page.component';
+import { AdminPermissionPageComponent } from './admin-permission-page/admin-permission-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -29,7 +31,9 @@ const routes: Routes = [
   {path:'adminprofile',component:AdminProfilePageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminviewhistory/:id',component:AdminPurChaseHistoryPageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminaddorder',component:AdminAddOrderPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
-  {path:'admincartpage',component:AdminCartPageComponent,canActivate: [AuthGuard,AdminAuthGuard]}
+  {path:'admincartpage',component:AdminCartPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
+  {path:'admincheckoutpage',component:AdminCheckOutPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
+  {path:'adminpermissionpage',component:AdminPermissionPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
 ];
 
 @NgModule({

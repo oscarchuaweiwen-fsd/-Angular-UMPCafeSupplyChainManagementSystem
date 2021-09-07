@@ -60,6 +60,9 @@ import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
 import {MatCardModule} from '@angular/material/card';
 import {TableModule} from 'primeng/table';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {DropdownModule} from 'primeng/dropdown';
+import { AdminCheckOutPageComponent } from './admin-check-out-page/admin-check-out-page.component';
+import { AdminPermissionPageComponent } from './admin-permission-page/admin-permission-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,7 +79,9 @@ import {InputNumberModule} from 'primeng/inputnumber';
     AdminProfilePageComponent,
     AdminPurChaseHistoryPageComponent,
     AdminAddOrderPageComponent,
-    AdminCartPageComponent
+    AdminCartPageComponent,
+    AdminCheckOutPageComponent,
+    AdminPermissionPageComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +121,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     NgxNumberSpinnerModule,
     MatCardModule,
     TableModule,
-    InputNumberModule
+    InputNumberModule,
+    DropdownModule
   ],
   providers: [
     AuthGuard,

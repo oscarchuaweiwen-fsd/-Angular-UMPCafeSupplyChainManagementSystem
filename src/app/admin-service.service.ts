@@ -63,5 +63,51 @@ export class AdminServiceService {
     
   }
 
+  async getcartInfo():Promise<any>{
+
+    return new Promise((resolve, reject) => {
+      let customer:any[] = []
+      this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('cart').snapshotChanges().subscribe(res=>{
+  
+        res.map(res=>{
+          console.log(res);
+          let obj = {
+            brand:res.payload.doc.data().brand,
+            compname:res.payload.doc.data().compname,
+            price:res.payload.doc.data().price,
+            quantity:res.payload.doc.data().quantity,
+            totalprice:res.payload.doc.data().totalprice
+          }
+  
+          customer.push(obj)
+          resolve(customer) 
+        
+        })
+      })
+    })
+ 
+  }
+
+  async getSupplierInfo(){
+    return new Promise((resolve, reject) =>{
+      let compname:any[];
+      this.fs
+      .collection('Supplier')
+      .snapshotChanges()
+      .subscribe((data) => {
+        data.map((data: any) => {
+          let obj = {
+          compname : data.payload.doc.data().compname,
+           shippingfee : data.payload.doc.data().shippingfee
+          }
+          
+          compname.push(obj);
+
+          resolve(compname);
+        });
+      });
+    })
+  }
+
 
 }

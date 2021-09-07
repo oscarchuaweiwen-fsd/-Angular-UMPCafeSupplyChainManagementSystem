@@ -1,0 +1,18 @@
+<app-adminnavbarpage></app-adminnavbarpage>
+<div *ngFor="let y of x3;">
+    {{y}}
+    <span *ngFor="let x of x1; let i = index">
+    
+       <p *ngIf="y == x.compname" (change)="hello(x)">{{x|json}}</p>
+   
+     
+        
+     </span>
+
+   
+</div>
+
+
+
+
+

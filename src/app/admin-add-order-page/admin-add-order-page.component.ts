@@ -124,9 +124,7 @@ this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("cart
         }
       
       })
-  
-  
-     
+
       this.dataSource = new MatTableDataSource(x);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -173,7 +171,4 @@ this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("cart
     
   }
 
-  reload(){
-    window.location.reload();
-  }
 }
