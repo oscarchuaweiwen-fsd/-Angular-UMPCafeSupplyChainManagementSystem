@@ -33,7 +33,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {AccordionModule} from 'primeng/accordion';   
-import {MenuItem} from 'primeng/api';  
+import {MenuItem, MessageService} from 'primeng/api';  
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
@@ -63,6 +63,14 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {DropdownModule} from 'primeng/dropdown';
 import { AdminCheckOutPageComponent } from './admin-check-out-page/admin-check-out-page.component';
 import { AdminPermissionPageComponent } from './admin-permission-page/admin-permission-page.component';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {ToastModule} from 'primeng/toast';
+import { AdminMenuListPageComponent } from './admin-menu-list-page/admin-menu-list-page.component';
+import { AdminAddMenuListPageComponent } from './admin-add-menu-list-page/admin-add-menu-list-page.component';
+import {ToolbarModule} from 'primeng/toolbar';
+import {FileUploadModule} from 'primeng/fileupload';
+import {DialogModule} from 'primeng/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +89,9 @@ import { AdminPermissionPageComponent } from './admin-permission-page/admin-perm
     AdminAddOrderPageComponent,
     AdminCartPageComponent,
     AdminCheckOutPageComponent,
-    AdminPermissionPageComponent
+    AdminPermissionPageComponent,
+    AdminMenuListPageComponent,
+    AdminAddMenuListPageComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +132,13 @@ import { AdminPermissionPageComponent } from './admin-permission-page/admin-perm
     MatCardModule,
     TableModule,
     InputNumberModule,
-    DropdownModule
+    DropdownModule,
+    ToggleButtonModule,
+    ConfirmPopupModule,
+    ToastModule,
+    ToolbarModule,
+    FileUploadModule,
+    DialogModule
   ],
   providers: [
     AuthGuard,
@@ -131,7 +147,9 @@ import { AdminPermissionPageComponent } from './admin-permission-page/admin-perm
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorserviceService,multi:true },
     ConfirmationService,
     SupplierAuthGuard,
-    StudentAuthGuard
+    StudentAuthGuard,
+    ConfirmationService,
+  MessageService
   ],
   bootstrap: [AppComponent],
 })

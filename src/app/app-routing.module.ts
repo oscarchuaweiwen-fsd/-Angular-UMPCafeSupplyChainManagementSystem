@@ -19,6 +19,7 @@ import { AdminAddOrderPageComponent } from './admin-add-order-page/admin-add-ord
 import { AdminCartPageComponent } from './admin-cart-page/admin-cart-page.component';
 import { AdminCheckOutPageComponent } from './admin-check-out-page/admin-check-out-page.component';
 import { AdminPermissionPageComponent } from './admin-permission-page/admin-permission-page.component';
+import { AdminMenuListPageComponent } from './admin-menu-list-page/admin-menu-list-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   {path:'admincartpage',component:AdminCartPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'admincheckoutpage',component:AdminCheckOutPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'adminpermissionpage',component:AdminPermissionPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
+  {path:'adminmenupage',component:AdminMenuListPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
 ];
 
 @NgModule({
