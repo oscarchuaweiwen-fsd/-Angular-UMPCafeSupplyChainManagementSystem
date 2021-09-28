@@ -37,7 +37,7 @@
 
 <td>
 
-<p-tableCheckbox
+<!-- <p-tableCheckbox
 
 [value]="product"
 
@@ -45,7 +45,7 @@
 
 #e
 
-></p-tableCheckbox>
+></p-tableCheckbox> -->
 
 
 </td>
@@ -96,7 +96,9 @@ decrementButtonIcon="pi pi-minus"
 
 <td>{{ product.totalprice }}</td>
 
-<td><button mat-raised-button (click)="deleteCart(product.brand)" [disabled]='x3.length>0'>Delete</button></td>
+<td><button mat-raised-button (click)="deleteCart(product.brand,products.length)" [disabled]='x3.length>0'>Delete</button>
+    <button mat-raised-button (click)="pay(product.compname,product.price,product.brand,product.quantity,product.category,product)" [disabled]='x3.length>0'>Pay</button>
+</td>
 
 </tr>
 
@@ -106,4 +108,4 @@ decrementButtonIcon="pi pi-minus"
 
 </div>
 
-<mat-card>Total ({{ overallquantity }}): RM {{ overallprice }} <span><button mat-raised-button (click)="checkout()" [disabled]='x3.length ==0'>Check Out</button></span></mat-card>
+<!-- <mat-card>Total ({{ overallquantity }}): RM {{ overallprice }} <span><button mat-raised-button (click)="checkout()" [disabled]='x3.length ==0'>Check Out</button></span></mat-card> -->

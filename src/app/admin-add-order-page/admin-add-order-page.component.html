@@ -88,7 +88,7 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Action</th>
           <td mat-cell *matCellDef="let row;">
-            <button (click)="addtocart(row.brand,row.price,row.compname.compname)" mat-raised-button>
+            <button (click)="addtocart(row.brand,row.price,row.compname.compname,row.category)" mat-raised-button>
               Add to Cart
             </button>
           </td>

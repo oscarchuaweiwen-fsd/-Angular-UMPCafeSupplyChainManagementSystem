@@ -1,1 +1,41 @@
-<p>admin-add-menu-list-page works!</p>
+<form action="">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="firstname1">Product Name</label>
+            <input id="firstname1" type="text" pInputText [(ngModel)]="product" name="productname"> 
+        </div>
+        <div class="p-field">
+            <label for="lastname1">Product Price</label>
+            <input id="lastname1" type="text" pInputText [(ngModel)]="productprice" name="productprice"> 
+        </div>
+        <div class="p-field" *ngIf="product?.length>0">
+            <label  for="file">Product Image:</label>
+            <input type="file"  accept=".png,.jpg" />
+            <!-- (change)="onFileSelected($event,product)" -->
+            <progress max="100" [value]="(uploadProgress | async)">asd</progress>
+        </div>
+ 
+        <div class="p-field">
+            <label for="lastname1">Ingredient Name (Needed)</label>
+            <input id="lastname1" type="text" pInputText #i> 
+        </div>
+
+        <div class="p-field">
+            <label for="lastname1">Ingredient Quantity (Needed)</label>
+            <input id="lastname1" type="text" pInputText #iq> 
+        </div>
+
+        <button mat-raised-button (click)="addNewIngredient(i,iq)">Add</button>
+
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let x of ingredient;let i=index">{{x|json}} <button mat-raised-button (click)="delete(i)">Delete</button></li>
+            
+          </ul>
+    </div>
+
+    <button mat-raised-button (click)="add()">Confirm</button>
+</form>
+
+<!-- 
+
+ -->

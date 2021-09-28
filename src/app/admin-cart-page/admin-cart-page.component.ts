@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { loadStripe } from '@stripe/stripe-js';
+import { AngularFireFunctions } from '@angular/fire/functions';
 @Component({
   selector: 'app-admin-cart-page',
   templateUrl: './admin-cart-page.component.html',
@@ -57,8 +58,15 @@ export class AdminCartPageComponent implements OnInit {
   total2: any = 0;
 
   disablequantity!: boolean;
+  isGettingCheckout: boolean = false;
+  stripe:any;
+  action!: string;
+  productname: any;
+  productprice: any;
+  uid: any;
+  tracking_number:any;
 
-  constructor(private fs: AngularFirestore, private router: Router) {
+  constructor(private fs: AngularFirestore, private router: Router,private fns:AngularFireFunctions,private aR:ActivatedRoute) {
     this.fs
 
       .collection('Admin')
@@ -86,6 +94,8 @@ export class AdminCartPageComponent implements OnInit {
 
             compname: res.payload.doc.data().compname,
 
+            category: res.payload.doc.data().category,
+
             totalprice: this.totalprice,
           };
 
@@ -99,6 +109,7 @@ export class AdminCartPageComponent implements OnInit {
       .collection('Admin')
       .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
       .collection('checkout');
+
   }
 
   ngOnInit(): void {}
@@ -237,15 +248,60 @@ export class AdminCartPageComponent implements OnInit {
     });
   }
 
-  deleteCart(brand: any) {
+  deleteCart(brand: any,product:any) {
+    console.log(product);
+
     this.fs
       .collection('Admin')
       .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
       .collection('cart')
       .doc(brand)
       .delete();
+
+      if(product ==1){
+        this.router.navigateByUrl('/adminaddorder')
+      }
   }
-  checkout() {
-    this.router.navigateByUrl('/admincheckoutpage', { state: this.x1 });
+
+  // checkout() {
+  //   this.router.navigateByUrl('/admincheckoutpage', { state: this.x1 });
+  // }
+
+  async pay(compname1:any,finalPrice:any,finalProduct:any,quantity1:any,category1:any,product:any) {
+    
+    console.log(category1,product)
+    this.isGettingCheckout = true;
+
+    this.stripe = await loadStripe(
+      'pk_test_51JWyo0FAyW0TeHuLxronXkW18xbGcUCeGeOnk0CCq3W6Kl8gZ3OViSOqMctnmuMTptcchsU1ZsieUf4LAMHCfwxu00Hd2Nl8Rz'
+    );
+
+
+    this.tracking_number = `UMPSC${Math.floor( Math.random() * 19999999 ) + 10000000}MY`;
+    const createCheckoutSession = this.fns.httpsCallable('stripeCheckout');
+    createCheckoutSession({
+      productname: finalProduct,
+      quantity:quantity1,
+      amount:finalPrice,
+      compname:compname1,
+      category:category1,
+      trackingnumber:this.tracking_number
+    }).subscribe(async (result) => {
+      console.log({ result });
+      this.uid = result;
+      await this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('payment').doc(this.tracking_number).set({productname:finalProduct,quantity:quantity1,compname:compname1,amount:finalPrice,status:'unpaid',uid:this.uid,category:category1});
+      localStorage.setItem('stripeCheckout', result);
+      this.stripe
+        .redirectToCheckout({
+          sessionId: result,
+        })
+        .then(function (result: { error: { message: any } }) {
+          console.log(result.error.message);
+        });
+    });
+
+   
+    
   }
+
 }

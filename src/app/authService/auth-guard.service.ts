@@ -18,8 +18,6 @@ export class AuthGuard implements CanActivate {
 
     return this.fauth.authState.pipe(
       map(user=>{
-
-        console.log(user)
         
         if(user){ return true}
         

@@ -1,18 +1,19 @@
 <app-adminnavbarpage></app-adminnavbarpage>
-<div *ngFor="let y of x3;">
-    {{y}}
-    <span *ngFor="let x of x1; let i = index">
-    
-       <p *ngIf="y == x.compname" (change)="hello(x)">{{x|json}}</p>
-   
-     
-        
-     </span>
 
-     <button (click)="donate()"></button>
-</div>
+<p-panel *ngFor="let y of x3">
+  {{ y }}
+  <ul class="list-group" *ngFor="let x of x1; let i = index">
+    <li class="list-group-item" *ngIf="y == x.compname">
+      {{ i + 1 }}. Brand:{{ x.brand }} | Unit Price:{{ x.price }} | Quantity:{{
+        x.quantity
+      }}
+    | Total Price:{{ x.totalprice }}
+    </li>
+  </ul>
+  <p>Overall Product: {{this.finalProduct}}</p>
+  <p>Overall Total Price: {{ this.finalPrice }}</p>
+  <p>Overall Total Quantity: {{ this.finalQuantity }}</p>
+  <button mat mat-raised-button target="_blank" (click)="pay(y, finalPrice,finalProduct)">Pay</button>
+</p-panel>
 
-
-
-
-
+<!-- { "brand": "ramly2", "price": "13", "quantity": 9, "compname": "Fanny Food Sdn Bhd", "totalprice": 117 } -->

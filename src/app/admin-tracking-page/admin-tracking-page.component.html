@@ -1,0 +1,22 @@
+<app-adminnavbarpage></app-adminnavbarpage>
+
+
+<p-tabView>
+    <p-tabPanel header="To Pay">
+       To Pay
+
+        <ul>
+            <li *ngFor="let x of toPay">{{x|json}} <button (click)="pay(x.data.uid)">Pay Now</button> <button (click)="delete(x.data.uid,x.id)">Delete</button></li>
+        </ul>
+    </p-tabPanel>
+    <p-tabPanel header="To Ship">
+        To Ship
+
+        <ul>
+            <li *ngFor="let x of toShip">{{x|json}}</li>
+        </ul>
+    </p-tabPanel>
+    <p-tabPanel header="To Received">
+        To Received
+    </p-tabPanel>
+</p-tabView>

@@ -53,7 +53,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSelectModule} from '@angular/material/select';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {ConnectionServiceModule} from 'ng-connection-service';
+import {ConnectionServiceModule} from 'ngx-connection-service';
 import { AdminCartPageComponent } from './admin-cart-page/admin-cart-page.component';  
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { NgxNumberSpinnerModule } from 'ngx-number-spinner';
@@ -71,6 +71,16 @@ import { AdminAddMenuListPageComponent } from './admin-add-menu-list-page/admin-
 import {ToolbarModule} from 'primeng/toolbar';
 import {FileUploadModule} from 'primeng/fileupload';
 import {DialogModule} from 'primeng/dialog';
+import {ChipsModule} from 'primeng/chips';
+import { DialogService } from 'primeng/dynamicdialog';
+import {CardModule} from 'primeng/card';
+import {PanelModule} from 'primeng/panel';
+import {RatingModule} from 'primeng/rating';
+import { AdminTrackingPageComponent } from './admin-tracking-page/admin-tracking-page.component';
+import {TabViewModule} from 'primeng/tabview';
+import { SuppliernavbarpageComponent } from './suppliernavbarpage/suppliernavbarpage.component';
+import { SupplierProductPageComponent } from './supplier-product-page/supplier-product-page.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +101,10 @@ import {DialogModule} from 'primeng/dialog';
     AdminCheckOutPageComponent,
     AdminPermissionPageComponent,
     AdminMenuListPageComponent,
-    AdminAddMenuListPageComponent
+    AdminAddMenuListPageComponent,
+    AdminTrackingPageComponent,
+    SuppliernavbarpageComponent,
+    SupplierProductPageComponent
   ],
   imports: [
     BrowserModule,
@@ -126,7 +139,6 @@ import {DialogModule} from 'primeng/dialog';
     MatBadgeModule,
     MatSelectModule,
     MatExpansionModule,
-    ConnectionServiceModule,
     MatCheckboxModule,
     NgxNumberSpinnerModule,
     MatCardModule,
@@ -138,18 +150,25 @@ import {DialogModule} from 'primeng/dialog';
     ToastModule,
     ToolbarModule,
     FileUploadModule,
-    DialogModule
+    DialogModule,
+    ChipsModule,
+    CardModule,
+    PanelModule,
+    RatingModule,
+    ConnectionServiceModule,
+    TabViewModule
   ],
   providers: [
     AuthGuard,
     AuthService,
     AdminAuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorserviceService,multi:true },
-    ConfirmationService,
     SupplierAuthGuard,
     StudentAuthGuard,
     ConfirmationService,
-  MessageService
+  MessageService,
+  DialogService
+
   ],
   bootstrap: [AppComponent],
 })

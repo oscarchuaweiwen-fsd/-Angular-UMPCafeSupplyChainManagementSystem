@@ -37,6 +37,7 @@ export class AdminAddOrderPageComponent implements OnInit {
  temp: any[] = []
  isModified:boolean = false;
  isExisted:boolean | undefined;
+ category2:any;
   constructor(private fs: AngularFirestore) {
 
 
@@ -132,11 +133,13 @@ this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("cart
 
   }
  
-  addtocart(brand:any,price:number,compname:any){
+  async addtocart(brand:any,price:number,compname:any,category1:any){
+    this.category2 = category1;
+    console.log(this.category2)
     let totalprice = price;
     const price1:number=price
     if(this.filter3.length == 0){
-      this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname,totalprice:totalprice})
+      this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname,totalprice:totalprice,category:this.category2})
     }
   for (let index = 0; index < this.filter3.length; index++) {
     let array: any[] = [];
@@ -161,11 +164,11 @@ this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("cart
         const newquantity = quantity+1;
         console.log(index)
         const totalprice = newquantity * price1;
-        this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).update({quantity:newquantity,price:price1,brand:brand,compname:compname,totalprice:totalprice})
+        this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).update({quantity:newquantity,price:price1,brand:brand,compname:compname,totalprice:totalprice,category:this.category2})
 
         
       }else if(this.isExisted === false){
-        this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname})
+        await this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname,category:this.category2})
       }
     }
     

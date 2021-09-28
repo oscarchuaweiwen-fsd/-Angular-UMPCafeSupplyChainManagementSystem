@@ -20,6 +20,8 @@ import { AdminCartPageComponent } from './admin-cart-page/admin-cart-page.compon
 import { AdminCheckOutPageComponent } from './admin-check-out-page/admin-check-out-page.component';
 import { AdminPermissionPageComponent } from './admin-permission-page/admin-permission-page.component';
 import { AdminMenuListPageComponent } from './admin-menu-list-page/admin-menu-list-page.component';
+import { AdminTrackingPageComponent } from './admin-tracking-page/admin-tracking-page.component';
+import { SupplierProductPageComponent } from './supplier-product-page/supplier-product-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -27,8 +29,6 @@ const routes: Routes = [
   { path: 'forgotpassword', component: ForgotpasswordPageComponent},
   { path: 'adminpage', component: AdminHomePageComponent, canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminmanageinv',component: AdminManageInventoryComponent,canActivate: [AuthGuard,AdminAuthGuard]},
-  {path:'studentpage',component: StudentHomePageComponent, canActivate: [AuthGuard,StudentAuthGuard]},
-  {path:'supplierpage',component: SupplierHomePageComponent, canActivate: [AuthGuard,SupplierAuthGuard]},
   {path:'adminprofile',component:AdminProfilePageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminviewhistory/:id',component:AdminPurChaseHistoryPageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminaddorder',component:AdminAddOrderPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
@@ -36,6 +36,11 @@ const routes: Routes = [
   {path:'admincheckoutpage',component:AdminCheckOutPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'adminpermissionpage',component:AdminPermissionPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'adminmenupage',component:AdminMenuListPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
+  {path:'admintrackingpage',component:AdminTrackingPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
+  {path:'studentpage',component: StudentHomePageComponent, canActivate: [AuthGuard,StudentAuthGuard]},
+  {path:'supplierpage',component: SupplierHomePageComponent, canActivate: [AuthGuard,SupplierAuthGuard]},
+  {path:'supplierproduct',component: SupplierProductPageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
+  
 ];
 
 @NgModule({
