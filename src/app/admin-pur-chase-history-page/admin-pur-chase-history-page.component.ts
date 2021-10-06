@@ -46,8 +46,8 @@ export class AdminPurChaseHistoryPageComponent implements OnInit {
 
       res.map((res) => {
         let obj = {
-          company:res.payload.doc.id,
-          totalprice: res.payload.doc.data().totalprice,
+          company:res.payload.doc.data().compname,
+          totalprice: res.payload.doc.data().total,
           quantity: res.payload.doc.data().quantity,
           brand:res.payload.doc.data().brand
         };

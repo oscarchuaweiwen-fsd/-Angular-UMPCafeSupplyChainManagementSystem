@@ -8,7 +8,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 
-
 @Component({
   selector: 'app-admin-add-order-page',
   templateUrl: './admin-add-order-page.component.html',
@@ -48,18 +47,22 @@ export class AdminAddOrderPageComponent implements OnInit {
           
       let compname = data.payload.doc.data();
         this.fs.collection('Supplier').doc(data.payload.doc.id).collection('menu').snapshotChanges().subscribe(res=>{
+  
           res.map(res=>{
             if(res.type == 'added'){
 
               let obj = {
                 compname: compname,
                 brand:res.payload.doc.data().brand,
-                rating:res.payload.doc.data().rating,
+                rating:res.payload.doc.data().ratingTotal,
                 price: res.payload.doc.data().price,
-                category:res.payload.doc.data().category
+                category:res.payload.doc.data().category,
+                quantity:res.payload.doc.data().quantity
               }
+              if(res.payload.doc.data().quantity > 0){
 
-              this.overallmenu.push(obj);
+                this.overallmenu.push(obj);
+              }
                   this.dataSource = new MatTableDataSource(this.overallmenu);
                   this.dataSource.paginator = this.paginator;
                   this.dataSource.sort = this.sort;
@@ -133,13 +136,13 @@ this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("cart
 
   }
  
-  async addtocart(brand:any,price:number,compname:any,category1:any){
+  async addtocart(brand:any,price:number,compname:any,category1:any,stock:any){
     this.category2 = category1;
     console.log(this.category2)
     let totalprice = price;
     const price1:number=price
     if(this.filter3.length == 0){
-      this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname,totalprice:totalprice,category:this.category2})
+      this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname,totalprice:totalprice,category:this.category2,stock:stock})
     }
   for (let index = 0; index < this.filter3.length; index++) {
     let array: any[] = [];
@@ -164,11 +167,11 @@ this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("cart
         const newquantity = quantity+1;
         console.log(index)
         const totalprice = newquantity * price1;
-        this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).update({quantity:newquantity,price:price1,brand:brand,compname:compname,totalprice:totalprice,category:this.category2})
+        this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).update({quantity:newquantity,price:price1,brand:brand,compname:compname,totalprice:totalprice,category:this.category2,stock:stock})
 
         
       }else if(this.isExisted === false){
-        await this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname,category:this.category2})
+        await this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('cart').doc(brand).set({quantity:1,price:price1,brand:brand,compname:compname,category:this.category2,stock:stock})
       }
     }
     

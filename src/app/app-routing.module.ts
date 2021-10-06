@@ -22,6 +22,9 @@ import { AdminPermissionPageComponent } from './admin-permission-page/admin-perm
 import { AdminMenuListPageComponent } from './admin-menu-list-page/admin-menu-list-page.component';
 import { AdminTrackingPageComponent } from './admin-tracking-page/admin-tracking-page.component';
 import { SupplierProductPageComponent } from './supplier-product-page/supplier-product-page.component';
+import { SupplierProfilePageComponent } from './supplier-profile-page/supplier-profile-page.component';
+import { SupplierOrderPageComponent } from './supplier-order-page/supplier-order-page.component';
+import { SupplierTrackingPageComponent } from './supplier-tracking-page/supplier-tracking-page.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -40,11 +43,14 @@ const routes: Routes = [
   {path:'studentpage',component: StudentHomePageComponent, canActivate: [AuthGuard,StudentAuthGuard]},
   {path:'supplierpage',component: SupplierHomePageComponent, canActivate: [AuthGuard,SupplierAuthGuard]},
   {path:'supplierproduct',component: SupplierProductPageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
+  {path:'supplierprofile',component: SupplierProfilePageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
+  {path:'supplierorder',component: SupplierOrderPageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
+  {path:'suppliertracking',component: SupplierTrackingPageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
   
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'})],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

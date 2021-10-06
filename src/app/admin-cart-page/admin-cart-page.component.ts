@@ -96,6 +96,8 @@ export class AdminCartPageComponent implements OnInit {
 
             category: res.payload.doc.data().category,
 
+            stock:res.payload.doc.data().stock,
+
             totalprice: this.totalprice,
           };
 
@@ -289,7 +291,7 @@ export class AdminCartPageComponent implements OnInit {
     }).subscribe(async (result) => {
       console.log({ result });
       this.uid = result;
-      await this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('payment').doc(this.tracking_number).set({productname:finalProduct,quantity:quantity1,compname:compname1,amount:finalPrice,status:'unpaid',uid:this.uid,category:category1});
+      await this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('payment').doc(this.tracking_number).set({productname:finalProduct,quantity:quantity1,compname:compname1,amount:finalPrice,status:'unpaid',uid:this.uid,category:category1,ordertimestamp:null,preparetimestamp:null,shiptimestamp:null,completetimestamp:null,receivedstatus:false,ratingstatus:false});
       localStorage.setItem('stripeCheckout', result);
       this.stripe
         .redirectToCheckout({

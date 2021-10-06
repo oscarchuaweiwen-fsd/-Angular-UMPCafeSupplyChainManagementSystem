@@ -1,0 +1,36 @@
+<app-suppliernavbarpage></app-suppliernavbarpage>
+
+<p-dropdown [options]="trackingInfo" [(ngModel)]="selectedCountry" optionLabel="" [filter]="true" [filterBy]="'trackingnumber'" [showClear]="true" placeholder="Select Tracking Number" (onChange)="submit()">
+    <ng-template pTemplate="selectedItem" let-asd>
+        <div class="country-item country-item-value"  *ngIf="selectedCountry">
+            <div class="hello">{{(asd.trackingnumber)}} -- {{asd.data.productname}}</div>
+        </div>
+    </ng-template>
+    <ng-template let-country pTemplate="item">
+        <div class="country-item">
+            <div>{{country.trackingnumber}} -- {{country.data.productname}}</div>
+        </div>
+    </ng-template>  
+</p-dropdown>
+
+<div class="card" *ngIf="selectedCountry">
+	<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+		<ng-template pTemplate="marker" let-event>
+			<span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
+                <i [ngClass]="event.icon"></i>
+            </span>
+		</ng-template>
+		<ng-template pTemplate="content" let-event let-i="index">
+			<p-card [header]="event.status" [subheader]="event.date" >
+				<p-card *ngIf="event.date !== null && event.index == true" [header]="'Product: ' + selectedCountry?.data?.productname" >
+					<hr>
+					<p>Amount: {{selectedCountry?.data?.amount | currency:"MYR"}}</p>
+					<p>Quantity: {{selectedCountry?.data?.quantity}}</p>
+					<p>Total: {{totalprice | currency:"MYR"}}</p>
+				</p-card>
+				<button mat-raised-button *ngIf="event.status =='Processing' && event.date !== null &&event.index == true" (click)="shipOut(selectedCountry)">Ship Out</button>
+				<button mat-raised-button *ngIf="event.status =='Shipped' && event.date !== null  &&event.index == true" (click)="completeOrder(selectedCountry)">Order Completed</button>
+			</p-card>
+		</ng-template>
+	</p-timeline>
+</div>

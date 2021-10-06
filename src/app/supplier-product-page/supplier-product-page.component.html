@@ -1,1 +1,56 @@
 <app-suppliernavbarpage></app-suppliernavbarpage>
+
+<p-toast></p-toast>
+
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="product" [rows]="10" [paginator]="true" [globalFilterFields]="['data.brand','data.price','data.quantity','status']" responsiveLayout="scroll"
+         [rowHover]="true" dataKey="data.id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Products</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="data.brand">Brand <p-sortIcon field="product"></p-sortIcon></th>
+                <th pSortableColumn="category">Unit Price <p-sortIcon field="category"></p-sortIcon></th>
+                <th pSortableColumn="inventoryStatus">Quantity <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                <th pSortableColumn="price">Category <p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="rating">Rating <p-sortIcon field="rating"></p-sortIcon></th>
+                <th pSortableColumn="action">Action <p-sortIcon field="action"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{product.data.brand}}</td>
+                <td>{{product.data.price | currency:'MYR'}}</td>
+                <td>{{product.data.quantity}}</td>
+                <td>{{product.data.category}}</td>
+                <td><p-rating [ngModel]="product.data.ratingTotal" [readonly]="true" [cancel]="false"></p-rating></td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(product)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product.id,product.data.brand)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <!-- In total there are {{products ? products.length : 0 }} products. -->
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

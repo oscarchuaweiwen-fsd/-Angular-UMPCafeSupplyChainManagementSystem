@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
@@ -16,7 +17,7 @@ export class AdminProfilePageComponent implements OnInit {
   name:any;
   phone:any;
   email:any;
-  constructor(public asS:AdminServiceService,private fb:FormBuilder,private fs:AngularFirestore) {
+  constructor(private http:HttpClient,public asS:AdminServiceService,private fb:FormBuilder,private fs:AngularFirestore) {
     this.form = this.fb.group({
       name:[''],
       email:[''],
@@ -25,10 +26,12 @@ export class AdminProfilePageComponent implements OnInit {
   
   
    this.getInfo();  
+
  
    }
 
   ngOnInit(): void {
+ 
   }
 
   update(){

@@ -80,7 +80,13 @@ import { AdminTrackingPageComponent } from './admin-tracking-page/admin-tracking
 import {TabViewModule} from 'primeng/tabview';
 import { SuppliernavbarpageComponent } from './suppliernavbarpage/suppliernavbarpage.component';
 import { SupplierProductPageComponent } from './supplier-product-page/supplier-product-page.component';
-
+import { SupplierAddProductPageComponent } from './supplier-add-product-page/supplier-add-product-page.component';
+import { SupplierEditProductPageComponent } from './supplier-edit-product-page/supplier-edit-product-page.component';
+import { SupplierProfilePageComponent } from './supplier-profile-page/supplier-profile-page.component';
+import { SupplierOrderPageComponent } from './supplier-order-page/supplier-order-page.component';
+import { SupplierTrackingPageComponent } from './supplier-tracking-page/supplier-tracking-page.component';
+import {TimelineModule} from 'primeng/timeline';
+import { NgChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,7 +110,12 @@ import { SupplierProductPageComponent } from './supplier-product-page/supplier-p
     AdminAddMenuListPageComponent,
     AdminTrackingPageComponent,
     SuppliernavbarpageComponent,
-    SupplierProductPageComponent
+    SupplierProductPageComponent,
+    SupplierAddProductPageComponent,
+    SupplierEditProductPageComponent,
+    SupplierProfilePageComponent,
+    SupplierOrderPageComponent,
+    SupplierTrackingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -156,7 +167,9 @@ import { SupplierProductPageComponent } from './supplier-product-page/supplier-p
     PanelModule,
     RatingModule,
     ConnectionServiceModule,
-    TabViewModule
+    TabViewModule,
+    TimelineModule,
+    NgChartsModule
   ],
   providers: [
     AuthGuard,

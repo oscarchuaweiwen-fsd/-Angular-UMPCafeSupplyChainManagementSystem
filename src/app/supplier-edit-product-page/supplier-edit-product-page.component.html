@@ -1,0 +1,14 @@
+
+<form action="" [formGroup]="editProductForm">
+    <div>
+        <input type="text" pInputText  placeholder="brand" formControlName="brand"/>
+    </div>
+    <div><input type="text" pInputText  placeholder="category" formControlName="category"/></div>
+    <div>    
+        <input type="text" pInputText  placeholder="quantity" formControlName="quantity"/></div>
+    <div>    <input type="text" pInputText  placeholder="price" formControlName="price"/></div>
+
+
+
+</form>
+<button mat-raised-button (click)="edit()">Update</button>

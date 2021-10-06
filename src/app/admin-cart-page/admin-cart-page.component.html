@@ -54,7 +54,7 @@
 
 <td>{{ product.brand }}</td>
 
-<td>{{ product.price }}</td>
+<td>{{ product.price }} </td>
 
 <td>
 
@@ -67,7 +67,8 @@
 [style.textAlign]="'center'"
 
 [(ngModel)]="products[rowIndex].quantity"
-
+[min]="1"
+[max] = "product.stock"
 [showButtons]="true"
 
 buttonLayout="horizontal"

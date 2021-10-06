@@ -18,5 +18,25 @@
     </p-tabPanel>
     <p-tabPanel header="To Received">
         To Received
+
+        <ul>
+            <li *ngFor="let x of toReceived">{{x|json}}  <button mat-raised-button *ngIf="x.data.status == 'completed'" (click)="updateInfoInv(x)">Order Received</button></li>
+         
+        </ul>
+    </p-tabPanel>
+
+    <p-tabPanel header="Completed">
+        Completed
+        <ul>
+            <li *ngFor="let x of completed">{{x|json}} <button mat-raised-button *ngIf="x.data.ratingstatus == false" (click)="showBasicDialog(x)">Rating</button></li>
+        </ul>
     </p-tabPanel>
 </p-tabView>
+
+<p-dialog header="Rate Product" [(visible)]="displayBasic" [style]="{width: '50vw'}">
+    <p>Product Name: {{productInfo?.data?.productname}}</p>
+    <p-rating [(ngModel)]="val2" [cancel]="false"></p-rating>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text" (click)="updateRating(productInfo)"></p-button>
+    </ng-template>
+</p-dialog>

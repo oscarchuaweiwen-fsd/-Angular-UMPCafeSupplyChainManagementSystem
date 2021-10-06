@@ -22,3 +22,7 @@ body{
     z-index: 999;
 }
 
+canvas{
+    height:50vh !important;
+    width:100vw !important;
+}
