@@ -28,7 +28,7 @@ export class AdminMenuListPageComponent implements OnInit {
   checkStatus2:any[]= [];
 
 
-  x4:any[] = [];
+  x4!:any[];
   x5:any[] = [];
   constructor(private confirmationService: ConfirmationService,public dialogService: DialogService, public messageService: MessageService,private fs:AngularFirestore) { 
     this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').snapshotChanges().subscribe(res=>{
@@ -58,47 +58,62 @@ export class AdminMenuListPageComponent implements OnInit {
       })
     })
 
-    
-    this.fs.collection("Admin").doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').snapshotChanges().subscribe(res=>{
-      this.x4 = [];
-      res.map(res=>{
-        let obj = {
-          ingredientName:res.payload.doc.id,
-          ingredient:res.payload.doc.data().ingredient
-        }
 
-        this.x4.push(obj);
+    // x4 - menu list
+    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').snapshotChanges().subscribe(res=>{
+      this.x4 = [];
+      res.map(async res=>{
+        let obj = {
+          id: res.payload.doc.id,
+          data: res.payload.doc.data().ingredient
+        }
+        await this.x4.push(obj);
        
       })
     })
 
-    this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('inventory').snapshotChanges().subscribe(res=>{
-      this.x5 = [];
-      res.map(res=>{
-        let obj = {
-          ingredientName:res.payload.doc.id,
-          quantity:res.payload.doc.data().quantity,
-          lowestmargin:res.payload.doc.data().lowestmargin
-        }
 
-        this.x5.push(obj);
-        
+    // x5 - ingredient list
+    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('inventory').snapshotChanges().subscribe(res=>{
+      this.x5 = [];
+
+      res.map(async res=>{
+        let obj = {
+          id: res.payload.doc.id,
+          data: res.payload.doc.data()
+        }
+        await this.x5.push(obj);
+
 
         this.x4.forEach((res,index)=>{
-          console.log(res.ingredient,index);
+          let info:[] = res.data;
+
+          info.forEach(res=>{
+            let data:any = res
+            this.x5.forEach(res=>{
+              if(res.id === data.ingredient){
+          
+                if(res.data.quantity<=data.ingredientQuantity ){
+                  console.log(data,index)
+                }
+              }
+            })
+          })
         })
       })
     })
-   
-
   }
 
   ngOnInit(): void {
-  
+    this.showQuantity()
   }
 
   ngOnDestroy() {
     this.subscribe.unsubscribe();
+  }
+
+  showQuantity(){
+    console.log(this.x4);
   }
 
 
