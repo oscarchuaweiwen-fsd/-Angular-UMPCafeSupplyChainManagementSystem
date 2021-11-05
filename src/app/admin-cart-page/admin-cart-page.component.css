@@ -1,5 +1,5 @@
 table{
-    width:100%;
+    width:80%;
 }
 
 input[type="number"]{
@@ -9,3 +9,8 @@ input[type="number"]{
 p-inputNumber{
     margin-left:-20px;
 }
+
+.title{
+    margin:25px;
+}
+

@@ -47,10 +47,10 @@ export class AdminAddOrderPageComponent implements OnInit {
           
       let compname = data.payload.doc.data();
         this.fs.collection('Supplier').doc(data.payload.doc.id).collection('menu').snapshotChanges().subscribe(res=>{
-  
+          
           res.map(res=>{
             if(res.type == 'added'){
-
+             
               let obj = {
                 compname: compname,
                 brand:res.payload.doc.data().brand,
@@ -59,8 +59,10 @@ export class AdminAddOrderPageComponent implements OnInit {
                 category:res.payload.doc.data().category,
                 quantity:res.payload.doc.data().quantity
               }
-              if(res.payload.doc.data().quantity > 0){
 
+            
+              if(res.payload.doc.data().quantity > 0){
+           
                 this.overallmenu.push(obj);
               }
                   this.dataSource = new MatTableDataSource(this.overallmenu);

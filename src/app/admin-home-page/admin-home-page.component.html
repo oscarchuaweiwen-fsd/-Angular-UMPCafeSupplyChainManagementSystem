@@ -1,17 +1,48 @@
 
 <app-adminnavbarpage></app-adminnavbarpage>
-<!-- <div style="text-align:center" class="chart">
-  <apx-chart
-    [series]="chartOptions?.series"
-    [chart]="chartOptions?.chart"
-    [xaxis]="chartOptions?.xaxis"
-    [title]="chartOptions?.title"
-  ></apx-chart>
-</div> -->
 
 
-<canvas baseChart
-      [data]="barChartData"
+<h4>Order Activity</h4>
 
-      [type]="'bar'">
-</canvas>
+{{info | json}}
+
+
+<div class="order">
+  
+
+    <div class="o1" (click)="showConfirm()">
+        <h3 id="top">{{awaitLength}}</h3>
+        <p>TO BE CONFIRM</p>
+        <p-dialog header="TO BE CONFIRM" [(visible)]="confirm">
+            <ul class="list-group" *ngFor="let x of info">
+                <li class="list-group-item" *ngIf="x.data.status =='await'">
+                    
+                <h6>Food name: {{x.data.productname}}</h6> 
+                <h6>Food Quantity: {{x.data.quantity}}</h6> 
+                <h6>Student Name: {{x.data.studentname}}</h6>  
+                <button mat-raised-button (click)="acceptOrder(x)">Accept Order</button></li>
+
+              </ul>
+        </p-dialog>
+    </div>
+    <div class="o2" (click)="showProcessing()">
+
+        <h3 id="top">{{processLength}}</h3>
+        <p>TO BE DELIVERED</p>
+        <p-dialog header="TO BE DELIVERED" [(visible)]="processing">
+            <ul class="list-group" *ngFor="let x of info">
+                <li class="list-group-item" *ngIf="x.data.status =='processing'">
+                    
+                <h6>Food name: {{x.data.productname}}</h6> 
+                <h6>Food Quantity: {{x.data.quantity}}</h6> 
+                <h6>Student Name: {{x.data.studentname}}</h6>  
+                <button mat-raised-button (click)="completeOrder(x)">Complete Order</button></li>
+
+              </ul>
+        </p-dialog>
+    
+    </div>
+    <div class="o3">
+        <p>COMPLETED</p>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+
+
+.nav-link.dropdown-toggle{
+    /* position:absolute;
+    right:0;
+    bottom:0; */
+ }
+ 
+ img{
+     height:50px;
+     width:50px;
+     border-radius: 50%;
+     margin-right: 10px;
+ }
+ 

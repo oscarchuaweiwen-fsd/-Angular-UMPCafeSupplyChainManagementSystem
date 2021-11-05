@@ -2,11 +2,9 @@ import { SupplierHomePageComponent } from './supplier-home-page/supplier-home-pa
 import { SupplierAuthGuard } from './authService/supplierauthguard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { component } from 'vue/types/umd';
 import { AdminHomePageComponent } from './admin-home-page/admin-home-page.component';
 import { AdminManageInventoryComponent } from './admin-manage-inventory/admin-manage-inventory.component';
 import { AdminAuthGuard } from './authService/adminauthguard.service';
-
 import { AuthGuard } from './authService/auth-guard.service';
 import { StudentAuthGuard } from './authService/studentauthguard.service';
 import { ForgotpasswordPageComponent } from './forgotpassword-page/forgotpassword-page.component';
@@ -25,6 +23,9 @@ import { SupplierProductPageComponent } from './supplier-product-page/supplier-p
 import { SupplierProfilePageComponent } from './supplier-profile-page/supplier-profile-page.component';
 import { SupplierOrderPageComponent } from './supplier-order-page/supplier-order-page.component';
 import { SupplierTrackingPageComponent } from './supplier-tracking-page/supplier-tracking-page.component';
+import { StudentProfilePageComponent } from './student-profile-page/student-profile-page.component';
+import { StudentCartPageComponent } from './student-cart-page/student-cart-page.component';
+
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -41,11 +42,14 @@ const routes: Routes = [
   {path:'adminmenupage',component:AdminMenuListPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'admintrackingpage',component:AdminTrackingPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'studentpage',component: StudentHomePageComponent, canActivate: [AuthGuard,StudentAuthGuard]},
+  {path:'studentprofilepage',component: StudentProfilePageComponent,canActivate: [AuthGuard,StudentAuthGuard]},
+  {path:'studentcartpage',component: StudentCartPageComponent,canActivate: [AuthGuard,StudentAuthGuard]},
   {path:'supplierpage',component: SupplierHomePageComponent, canActivate: [AuthGuard,SupplierAuthGuard]},
   {path:'supplierproduct',component: SupplierProductPageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
   {path:'supplierprofile',component: SupplierProfilePageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
   {path:'supplierorder',component: SupplierOrderPageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
   {path:'suppliertracking',component: SupplierTrackingPageComponent,canActivate: [AuthGuard,SupplierAuthGuard]},
+
   
 ];
 

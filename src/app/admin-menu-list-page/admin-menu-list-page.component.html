@@ -38,7 +38,7 @@
             <tr>
                
                 <td>{{product.productname}}</td>
-                <td><img [alt]="product.name" width="100" class="p-shadow-4" /></td>
+                <td><img [alt]="product.name" [src]="product.imageLink" width="100" class="p-shadow-4" /></td>
                 <td>{{product.price | currency:'RM'}}</td>
                 <td><ul class="list-group">
                     <li class="list-group-item" *ngFor="let x of product.ingredient">{{x.ingredient}} - {{x.ingredientQuantity}} unit</li>
@@ -70,6 +70,16 @@
                 <label for="lastname1">Product Price</label>
                 <input id="lastname1" type="text" pInputText value={{products[indexOfElement]?.price}} #pp name="productprice"> 
             </div>
+
+            <div class="p-field">
+                <label for="lastname1">Product Image Link</label>
+                <input id="lastname1" type="text" pInputText value={{products[indexOfElement]?.imageLink}} #il name="productprice"> 
+            </div>
+    
+            <div class="p-field" >
+                <p>Image Preview</p>
+                <img [src]="il.value" width="100"  alt="">
+            </div>
      
      
             <div class="p-field">
@@ -89,7 +99,7 @@
               </ul>
         </div>
     
-        <button mat-raised-button (click)="update(p.value,pp.value)">Update</button>
+        <button mat-raised-button (click)="update(p.value,pp.value,il.value)">Update</button>
     </form>
 </p-dialog>
 

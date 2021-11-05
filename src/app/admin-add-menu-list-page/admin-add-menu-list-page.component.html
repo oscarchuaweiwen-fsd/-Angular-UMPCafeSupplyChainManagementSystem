@@ -8,13 +8,19 @@
             <label for="lastname1">Product Price</label>
             <input id="lastname1" type="text" pInputText [(ngModel)]="productprice" name="productprice"> 
         </div>
-        <div class="p-field" *ngIf="product?.length>0">
-            <label  for="file">Product Image:</label>
-            <input type="file"  accept=".png,.jpg" />
-            <!-- (change)="onFileSelected($event,product)" -->
-            <progress max="100" [value]="(uploadProgress | async)">asd</progress>
-        </div>
+    
+       
  
+        <div class="p-field" *ngIf="product?.length>0">
+            <label for="lastname1">Product Image Link</label>
+            <input id="lastname1" type="text" pInputText [(ngModel)]="productImageLink" name="productprice"> 
+        </div>
+
+        <div class="p-field" *ngIf="productImageLink">
+            <p>Image Preview</p>
+            <img img src={{productImageLink}}  alt="">
+        </div>
+
         <div class="p-field">
             <label for="lastname1">Ingredient Name (Needed)</label>
             <input id="lastname1" type="text" pInputText #i> 
@@ -24,6 +30,8 @@
             <label for="lastname1">Ingredient Quantity (Needed)</label>
             <input id="lastname1" type="text" pInputText #iq> 
         </div>
+
+        
 
         <button mat-raised-button (click)="addNewIngredient(i,iq)">Add</button>
 

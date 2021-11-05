@@ -26,3 +26,41 @@ canvas{
     height:50vh !important;
     width:100vw !important;
 }
+
+
+mat-grid-tile{
+    background-color:red;
+    border-radius:1rem;
+    box-shadow: 10px 10px 5px -6px rgba(123,123,123,0.75);
+    -webkit-box-shadow: 10px 10px 5px -6px rgba(123,123,123,0.75);
+    -moz-box-shadow: 10px 10px 5px -6px rgba(123,123,123,0.75);
+}
+
+.order{
+    display:flex
+}
+
+.o1,.o2,.o3{
+    width:250px;
+    height:250px;
+    background-color:#eeeeee;
+    margin:1rem;
+    text-align:center;
+    position:relative
+}
+
+p{
+    position: absolute;
+
+  top: 50%;
+
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  margin: 0;
+}
+
+#top{
+    line-height:  10rem;
+}

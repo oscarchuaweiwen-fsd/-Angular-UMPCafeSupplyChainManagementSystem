@@ -38,11 +38,12 @@ export class AdminMenuListPageComponent implements OnInit {
         let obj={
           productname:res.payload.doc.id,
           price:res.payload.doc.data().price,
-          ingredient:res.payload.doc.data().ingredient
+          ingredient:res.payload.doc.data().ingredient,
+          imageLink:res.payload.doc.data().imageLink
         }
 
         this.products.push(obj);
-
+        console.log(obj)
       })
     })
 
@@ -171,17 +172,17 @@ delete(index:any){
   // this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc("Nasi Lemak").update({ingredient:firebase.default.firestore.FieldValue.delete()})
 }
 
-update(brand:any,price:any){
+update(brand:any,price:any,imageLink:any){
   console.log(brand);
   let x = this.products[this.indexOfElement].productname;
   console.log(this.products[this.indexOfElement]);
   
   if(brand !== this.products[this.indexOfElement].productname){
-    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(brand).set({price:price,ingredient:this.ingredient2}).then(res=>{
+    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(brand).set({price:price,ingredient:this.ingredient2,imageLink:imageLink}).then(res=>{
       this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(x).delete();
     })
   }else{
-    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(x).update({price:price,ingredient:this.ingredient2});
+    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(x).update({price:price,ingredient:this.ingredient2,imageLink:imageLink});
   }
   }
   

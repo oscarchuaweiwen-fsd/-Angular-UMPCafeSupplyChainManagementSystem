@@ -87,6 +87,13 @@ import { SupplierOrderPageComponent } from './supplier-order-page/supplier-order
 import { SupplierTrackingPageComponent } from './supplier-tracking-page/supplier-tracking-page.component';
 import {TimelineModule} from 'primeng/timeline';
 import { NgChartsModule } from 'ng2-charts';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { StudentNavbarPageComponent } from './student-navbar-page/student-navbar-page.component';
+import { StudentProfilePageComponent } from './student-profile-page/student-profile-page.component';
+import { StudentCartPageComponent } from './student-cart-page/student-cart-page.component';
+import {MatListModule} from '@angular/material/list'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -115,7 +122,11 @@ import { NgChartsModule } from 'ng2-charts';
     SupplierEditProductPageComponent,
     SupplierProfilePageComponent,
     SupplierOrderPageComponent,
-    SupplierTrackingPageComponent
+    SupplierTrackingPageComponent,
+    StudentNavbarPageComponent,
+    StudentProfilePageComponent,
+    StudentCartPageComponent,
+ 
   ],
   imports: [
     BrowserModule,
@@ -169,7 +180,9 @@ import { NgChartsModule } from 'ng2-charts';
     ConnectionServiceModule,
     TabViewModule,
     TimelineModule,
-    NgChartsModule
+    NgChartsModule,
+    MatGridListModule,
+    MatListModule
   ],
   providers: [
     AuthGuard,

@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./admin-home-page.component.css']
 })
 export class AdminHomePageComponent implements AfterViewInit {
-
+ 
   productname:any;
   productprice:any;
   action:any;
@@ -25,6 +25,20 @@ export class AdminHomePageComponent implements AfterViewInit {
   id:any
   quantity:any;
   barChartData:any;
+  info:any[] = [];
+  awaitLength:any =0;
+  processLength:any = 0;
+  confirm:any = false;
+  processing:any = false;
+  totalsale:any;
+  newTotal:any = 0
+  info2:any[] = [];
+  ingredient:any[] = []
+  deduct:any = 0;
+  inventory:any[] = [];
+  totalDeduct: any =0;
+
+
   constructor(private fauth:AngularFireAuth,private router:Router,private af:AngularFirestore,private aR:ActivatedRoute,private http:HttpClient) {
     const time = moment();
 
@@ -38,6 +52,29 @@ export class AdminHomePageComponent implements AfterViewInit {
         tension: 0.1
       }]
     };
+
+    this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("order").snapshotChanges().subscribe(res=>{
+      this.info = []
+      this.awaitLength = 0;
+      this.processLength=0;
+      res.map(res=>{
+         let obj = {
+           id:res.payload.doc.id,
+           data:res.payload.doc.data()
+         }
+        
+         this.info.push(obj)
+
+         if(obj.data.status =="await"){
+           this.awaitLength += 1
+         }else if(obj.data.status == "processing"){
+           this.processLength += 1
+         }
+
+      })
+    })
+
+
 this.aR.queryParams.subscribe(params =>{
   this.productname = params['productname'];
   this.productprice = params['amount'];
@@ -48,7 +85,6 @@ this.aR.queryParams.subscribe(params =>{
 });
 
   if(this.action =='success'){
-
     
     this.af.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('cart').doc(this.productname).delete();
     this.af.collection('Supplier').get().subscribe(res=>{
@@ -77,11 +113,95 @@ this.aR.queryParams.subscribe(params =>{
     this.af.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('cart').doc(this.productname).delete();
   }
 
+ 
+  this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("menu").snapshotChanges().subscribe(res=>{
+    this.info2 = []
+    res.map(res=>{
+        let obj = {
+          id:res.payload.doc.id,
+          data:res.payload.doc.data()
+        }
+
+        this.info2.push(obj);
+
+    })
+  })
+  
+
+  this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("inventory").snapshotChanges().subscribe(res=>{
+    this.inventory = []
+      res.map(res=>{
+        let obj = {
+          id:res.payload.doc.id,
+          data:res.payload.doc.data()
+        }
+
+        this.inventory.push(obj)
+      })
+  })
+
+
   }
+
+  
   ngAfterViewInit(): void {
 
   }
 
+
+  showConfirm() {
+    this.confirm = !this.confirm;
+  }
+
+  showProcessing(){
+    this.processing = !this.processing;
+  }
+
+  acceptOrder(x:any){
+
+    this.af.collection("Admin").doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection("order").doc(x.id).update({status:"processing"})
+    
+  }
+
+  async completeOrder(x:any){
+   
+    console.log(x)
+    // this.af.collection("Admin").doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection("order").doc(x.id).update({status:"completed"})
+
+
+   this.info2.forEach(res=>{
+
+
+     if(x.data.productname == res.id){
+       this.totalsale = res.data.totalsale
+       this.ingredient = res.data.ingredient
+     }
+   })
+    
+
+    
+   this.newTotal = parseInt(x.data.quantity) + this.totalsale;
+
+  this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("menu").doc(x.data.productname).update({totalsale:this.newTotal})
+
+
+
+
+   this.ingredient.forEach(data=>{
+     console.log(data)
+      
+
+      this.inventory.forEach(res=>{
+        if(res.id == data.ingredient){
+          this.deduct = data.ingredientQuantity * parseInt(x.data.quantity) 
+          this.totalDeduct = res.data.quantity - this.deduct
+
+          console.log(this.totalDeduct)
+          this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("inventory").doc(res.id).update({quantity:this.totalDeduct})
+        }
+      })
+   })
+  }
 
 }
 

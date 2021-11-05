@@ -1,1 +1,52 @@
-<p>student-home-page works!</p>
+<app-student-navbar-page></app-student-navbar-page>
+
+
+<div>
+  <div class="container">
+    <h4>Menu</h4>
+
+    <button
+    #menuTrigger="matMenuTrigger"
+    (mouseenter)="menuTrigger.openMenu()"
+    mat-button
+    [matMenuTriggerFor]="menu"
+    
+  >
+    <mat-icon
+      matBadge="{{ info.length }}"
+      matBadgePosition="after"
+      matBadgeColor="accent"
+      >shopping_cart</mat-icon
+    >
+  </button>
+  <mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <span (mouseleave)="menuTrigger.closeMenu()">
+      <button mat-menu-item *ngFor="let row of info">
+        {{ row.id }} ------> RM{{ row.data.data.data.price }}
+      </button>
+  
+      <button *ngIf="info.length > 0" mat-raised-button routerLink="/studentcartpage">View Cart</button>
+    </span>
+  </mat-menu>
+  </div>
+  
+  <div class="menu">
+    <p-card *ngFor="let x of tiles" header={{x.id}} subheader="RM {{x.data.price}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+          <img alt="Card" [src]="x.data.imageLink">
+      </ng-template>
+      <ng-template pTemplate="footer">
+          <p-button label="Add to Cart" icon="pi pi-shopping-cart" (click)="addtocart(x)" ></p-button>
+        
+      </ng-template>
+  </p-card>
+  </div>
+
+  <p-dialog header="Payment Info" [(visible)]="display" (onHide)="clearURL()">
+
+    Thank you for your purchase. Please kindly wait for your food to serve soon.
+</p-dialog>
+
+  
+
+</div>

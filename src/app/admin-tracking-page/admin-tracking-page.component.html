@@ -3,33 +3,70 @@
 
 <p-tabView>
     <p-tabPanel header="To Pay">
-       To Pay
 
-        <ul>
-            <li *ngFor="let x of toPay">{{x|json}} <button (click)="pay(x.data.uid)">Pay Now</button> <button (click)="delete(x.data.uid,x.id)">Delete</button></li>
-        </ul>
+        <p-accordion>
+            <p-accordionTab header={{x.data.productname}} *ngFor="let x of toPay">
+                <p>Company Name: {{x.data.compname}}</p>
+                <p>Category: {{x.data.category}}</p>
+                <p>Amount: {{x.data.amount}}</p>
+                <p>Quantity: {{x.data.quantity}}</p>
+                <p>Total:{{x.data.amount * x.data.quantity | currency:" MYR"}} </p>
+                <p>Status: {{x.data.status}}</p>
+                <button mat-raised-button (click)="pay(x.data.uid)">Pay Now</button> <button mat-raised-button (click)="delete(x.data.uid,x.id)">Cancel</button>
+            </p-accordionTab>
+           
+        </p-accordion>
     </p-tabPanel>
     <p-tabPanel header="To Ship">
-        To Ship
 
-        <ul>
-            <li *ngFor="let x of toShip">{{x|json}}</li>
-        </ul>
+        <p-accordion>
+            <p-accordionTab header={{x.data.productname}} *ngFor="let x of toShip">
+                <p>Company Name: {{x.data.compname}}</p>
+                <p>Category: {{x.data.category}}</p>
+                <p>Amount: {{x.data.amount}}</p>
+                <p>Quantity: {{x.data.quantity}}</p>
+                <p>Total:{{x.data.amount * x.data.quantity | currency:" MYR"}} </p>
+                <p>Status: {{x.data.status}}</p>
+                <p>Order Time : {{x.data.ordertimestamp}}</p>
+            </p-accordionTab>
+           
+        </p-accordion>
     </p-tabPanel>
     <p-tabPanel header="To Received">
-        To Received
 
-        <ul>
-            <li *ngFor="let x of toReceived">{{x|json}}  <button mat-raised-button *ngIf="x.data.status == 'completed'" (click)="updateInfoInv(x)">Order Received</button></li>
-         
-        </ul>
+        <p-accordion>
+            <p-accordionTab header={{x.data.productname}} *ngFor="let x of toReceived">
+                <p>Company Name: {{x.data.compname}}</p>
+                <p>Category: {{x.data.category}}</p>
+                <p>Amount: {{x.data.amount}}</p>
+                <p>Quantity: {{x.data.quantity}}</p>
+                <p>Total:{{x.data.amount * x.data.quantity | currency:" MYR"}} </p>
+                <p>Status: {{x.data.status}}</p>
+                <p>Order Time : {{x.data.ordertimestamp}}</p>
+                <p *ngIf="x.data.preparetimestamp !== null">Prepare Time : {{x.data.preparetimestamp}}</p>
+                <button mat-raised-button (click)="updateInfoInv(x)">Order Received</button>
+            </p-accordionTab>
+           
+        </p-accordion>
     </p-tabPanel>
 
     <p-tabPanel header="Completed">
-        Completed
-        <ul>
-            <li *ngFor="let x of completed">{{x|json}} <button mat-raised-button *ngIf="x.data.ratingstatus == false" (click)="showBasicDialog(x)">Rating</button></li>
-        </ul>
+
+        <p-accordion>
+            <p-accordionTab header={{x.data.productname}} *ngFor="let x of completed">
+                <p>Company Name: {{x.data.compname}}</p>
+                <p>Category: {{x.data.category}}</p>
+                <p>Amount: {{x.data.amount}}</p>
+                <p>Quantity: {{x.data.quantity}}</p>
+                <p>Total:{{x.data.amount * x.data.quantity | currency:" MYR"}} </p>
+                <p>Status: {{x.data.status}}</p>
+                <p>Order Time : {{x.data.ordertimestamp}}</p>
+                <p *ngIf="x.data.preparetimestamp !== null">Prepare Time : {{x.data.preparetimestamp}}</p>
+                <p>Completed Time : {{x.data.completetimestamp}}</p>
+
+                <button mat-raised-button *ngIf="x.data.ratingstatus == false" (click)="showBasicDialog(x)">Rating</button>
+                </p-accordionTab>
+        </p-accordion>
     </p-tabPanel>
 </p-tabView>
 

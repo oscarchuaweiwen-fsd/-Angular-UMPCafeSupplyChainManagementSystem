@@ -21,7 +21,7 @@ export class AdminAddMenuListPageComponent implements OnInit {
   values3!: string[];
   values4!: string[];
   supbro: any;
-
+  productImageLink:any;
   constructor(
  
     private fs: AngularFirestore
@@ -101,7 +101,7 @@ export class AdminAddMenuListPageComponent implements OnInit {
       .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
       .collection('menu')
       .doc(this.product)
-      .set({ price: this.productprice, ingredient: this.ingredient })
+      .set({ price: this.productprice, ingredient: this.ingredient,totalsale:0,imageLink:this.productImageLink,availability:false })
 
       // for (let index = 0; index < this.ingredient.length; index++) {
       //   const element = this.ingredient[index];

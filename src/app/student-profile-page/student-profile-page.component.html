@@ -1,0 +1,23 @@
+<app-student-navbar-page></app-student-navbar-page>
+<div>
+    <form action="" [formGroup]="updateProfile">
+        <h5>My Profile - {{supplierInfo?.name}}</h5>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Student Name</mat-label>
+            <input matInput placeholder="Student Name" value={{supplierInfo?.name}} formControlName="studname" #c>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Phone Number" value={{supplierInfo?.phone}} formControlName="phone" #p>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email" value={{supplierInfo?.email}} formControlName="email" #e>
+          </mat-form-field>
+   
+       <button mat-raised-button (click)="update(c,p,e)">Update</button>
+    </form>
+</div>
