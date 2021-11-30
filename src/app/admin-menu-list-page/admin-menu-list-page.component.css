@@ -3,3 +3,15 @@
     padding:4px;
     border-radius:2.5px;
 }
+
+.product-badge.status-lowstock{
+    background-color:rgb(252, 216, 101);
+    padding:4px;
+    border-radius:2.5px;
+}
+
+.product-badge.status-outstock{
+    background-color:rgb(255, 108, 108);
+    padding:4px;
+    border-radius:2.5px;
+}

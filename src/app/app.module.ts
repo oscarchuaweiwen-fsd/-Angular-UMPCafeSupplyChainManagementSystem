@@ -92,6 +92,7 @@ import { StudentNavbarPageComponent } from './student-navbar-page/student-navbar
 import { StudentProfilePageComponent } from './student-profile-page/student-profile-page.component';
 import { StudentCartPageComponent } from './student-cart-page/student-cart-page.component';
 import {MatListModule} from '@angular/material/list'
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
 
 
 @NgModule({
@@ -182,7 +183,8 @@ import {MatListModule} from '@angular/material/list'
     TimelineModule,
     NgChartsModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    VirtualScrollerModule
   ],
   providers: [
     AuthGuard,

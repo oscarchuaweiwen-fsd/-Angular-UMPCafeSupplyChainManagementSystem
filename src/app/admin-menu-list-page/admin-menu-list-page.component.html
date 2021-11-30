@@ -8,6 +8,11 @@
             <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="show()"></button>
             
         </ng-template>
+        <ng-template pTemplate="right">
+            
+            <button pButton pRipple label="Ingredient Checklist" icon="pi pi-info-circle" class="p-button-info p-mr-2" (click)="showDialog()"></button>
+            
+        </ng-template>
     </p-toolbar>
 
     <p-table #dt [value]="products" [rows]="5" [paginator]="true" [globalFilterFields]="['productname','price','rating','inventoryStatus']" responsiveLayout="scroll"
@@ -29,7 +34,8 @@
                 <th>Image</th>
                 <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
                 <th pSortableColumn="category">Ingredient <p-sortIcon field="category"></p-sortIcon></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                <th pSortableColumn="rating">Stock <p-sortIcon field="rating"></p-sortIcon></th>
+                <th pSortableColumn="rating">Tracking Ingredient<p-sortIcon field="rating"></p-sortIcon></th>
                 <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
                 <th></th>
             </tr>
@@ -43,8 +49,12 @@
                 <td><ul class="list-group">
                     <li class="list-group-item" *ngFor="let x of product.ingredient">{{x.ingredient}} - {{x.ingredientQuantity}} unit</li>
                 </ul></td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td ><span [class]="'product-badge '" [ngClass]="{'status-instock':true}">{{product.inventoryStatus}}asd</span></td>
+                <td>{{product.stock}}</td>
+                <td><button mat-raised-button></button></td>
+                <td ><span *ngIf="product.stock >= 10" [class]="'product-badge '" [ngClass]="{'status-instock':true}">Available</span>
+                    <span *ngIf="product.stock < 10 && product.stock != 0" [class]="'product-badge '" [ngClass]="{'status-lowstock':true}">StockLow</span>
+                    <span *ngIf="product.stock ==0" [class]="'product-badge '" [ngClass]="{'status-outstock':true}">StockOut</span>
+                </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="show2(product,i)"></button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product.productname)"></button>
@@ -81,7 +91,12 @@
                 <img [src]="il.value" width="100"  alt="">
             </div>
      
-     
+            <div class="p-field">
+                <label for="lastname1">Product Stock Quantity</label>
+                <input id="lastname1" type="text" pInputText value={{products[indexOfElement]?.stock}} #s name="productprice"> 
+            </div>
+
+
             <div class="p-field">
                 <label for="lastname1">Ingredient Name (Needed)</label>
                 <input id="lastname1" type="text" pInputText #i> 
@@ -99,10 +114,19 @@
               </ul>
         </div>
     
-        <button mat-raised-button (click)="update(p.value,pp.value,il.value)">Update</button>
+        <button mat-raised-button (click)="update(p.value,pp.value,il.value,s.value)">Update</button>
     </form>
 </p-dialog>
 
 
-
 <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+
+<p-dialog header="Ingredient Checklist" [(visible)]="display">
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let x of result">
+            <p>{{x.ingredient}}</p>
+            <p>{{x.quantity}} Unit</p>
+        </li>
+       
+      </ul>
+</p-dialog>

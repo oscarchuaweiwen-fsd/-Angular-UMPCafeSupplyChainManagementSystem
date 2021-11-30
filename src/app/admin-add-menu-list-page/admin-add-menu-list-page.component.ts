@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-admin-add-menu-list-page',
   templateUrl: './admin-add-menu-list-page.component.html',
@@ -101,7 +103,7 @@ export class AdminAddMenuListPageComponent implements OnInit {
       .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
       .collection('menu')
       .doc(this.product)
-      .set({ price: this.productprice, ingredient: this.ingredient,totalsale:0,imageLink:this.productImageLink,availability:false })
+      .set({ price: this.productprice, ingredient: this.ingredient,totalsale:0,imageLink:this.productImageLink,availability:false,stock:0 })
 
       // for (let index = 0; index < this.ingredient.length; index++) {
       //   const element = this.ingredient[index];

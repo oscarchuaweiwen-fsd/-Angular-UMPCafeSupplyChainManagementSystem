@@ -31,8 +31,8 @@
   </div>
   
   <div class="menu">
-    <p-card *ngFor="let x of tiles" header={{x.id}} subheader="RM {{x.data.price}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
-      <ng-template pTemplate="header">
+    <p-card *ngFor="let x of tiles2" header={{x.id}} subheader="RM {{x.data.price}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header" >
           <img alt="Card" [src]="x.data.imageLink">
       </ng-template>
       <ng-template pTemplate="footer">

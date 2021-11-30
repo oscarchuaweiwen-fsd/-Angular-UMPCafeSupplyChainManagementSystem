@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import { ChartDataset, ChartOptions } from 'chart.js';
 import { HttpClient } from '@angular/common/http';
 
+
+
 @Component({
   selector: 'app-admin-home-page',
   templateUrl: './admin-home-page.component.html',
@@ -24,12 +26,14 @@ export class AdminHomePageComponent implements AfterViewInit {
   compname:any;
   id:any
   quantity:any;
-  barChartData:any;
+
   info:any[] = [];
   awaitLength:any =0;
   processLength:any = 0;
+  completedLength:any = 0;
   confirm:any = false;
   processing:any = false;
+  completed:any = false;
   totalsale:any;
   newTotal:any = 0
   info2:any[] = [];
@@ -37,26 +41,37 @@ export class AdminHomePageComponent implements AfterViewInit {
   deduct:any = 0;
   inventory:any[] = [];
   totalDeduct: any =0;
+  month:any
+  months:any[]=[];
+  order:any[] =[];
+  topSale:any[] = [];
+  topSale2:any[] = [];
+  totalAmount = 0;
+  sales:any [] =[]
+  arraytotal:any []= []
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+  public barChartLabels: any[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'];
+  public barChartType:any = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
+  public barChartData:any = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Unit' }
+  ];
 
 
   constructor(private fauth:AngularFireAuth,private router:Router,private af:AngularFirestore,private aR:ActivatedRoute,private http:HttpClient) {
     const time = moment();
 
-    this.barChartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      }]
-    };
+    this.months =  ['Select Month','January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December']
 
     this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("order").snapshotChanges().subscribe(res=>{
       this.info = []
       this.awaitLength = 0;
       this.processLength=0;
+      this.completedLength=0;
       res.map(res=>{
          let obj = {
            id:res.payload.doc.id,
@@ -69,6 +84,8 @@ export class AdminHomePageComponent implements AfterViewInit {
            this.awaitLength += 1
          }else if(obj.data.status == "processing"){
            this.processLength += 1
+         }else if(obj.data.status == "completed"){
+           this.completedLength +=1
          }
 
       })
@@ -141,11 +158,64 @@ this.aR.queryParams.subscribe(params =>{
   })
 
 
+  this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("order").valueChanges().subscribe((res:any)=>{
+
+    this.sales = []
+      this.order = res
+      this.order.forEach(res=>{
+
+        if(res.status == "completed"){
+          let timestamp = res.completetimestamp
+          let getMonth = timestamp.split(' ')[0]
+          let obj = {
+            month: getMonth,
+            quantity:res.quantity
+          }
+
+          this.sales.push(obj)
+        }
+       
+  
+        
+      })
+
+      this.arraytotal = []
+      this.sales.forEach(res=>{
+        let index = this.barChartLabels.findIndex(c=>{
+          return c == res.month
+        })
+      
+        console.log(index)
+       
+     
+        if(this.arraytotal.length == 0){
+          this.arraytotal[index] = parseInt(res.quantity)
+        }else if(this.arraytotal[index] == undefined){
+          this.arraytotal[index] = parseInt(res.quantity)
+        }else{
+          let temp = this.arraytotal[index];
+          let total = parseInt(temp) + parseInt(res.quantity)
+          this.arraytotal[index] = total
+        }
+        
+        this.barChartData = [
+          { data: this.arraytotal, label: 'Unit' }
+        ];
+        
+      })
+    
+  })
+
+
+  
+
+ 
+
   }
 
   
   ngAfterViewInit(): void {
-
+    
   }
 
 
@@ -157,6 +227,11 @@ this.aR.queryParams.subscribe(params =>{
     this.processing = !this.processing;
   }
 
+  showCompleted(){
+    this.completed  = !this.completed
+  }
+
+
   acceptOrder(x:any){
 
     this.af.collection("Admin").doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection("order").doc(x.id).update({status:"processing"})
@@ -164,9 +239,9 @@ this.aR.queryParams.subscribe(params =>{
   }
 
   async completeOrder(x:any){
-   
+   let time = moment();
     console.log(x)
-    // this.af.collection("Admin").doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection("order").doc(x.id).update({status:"completed"})
+    this.af.collection("Admin").doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection("order").doc(x.id).update({status:"completed"})
 
 
    this.info2.forEach(res=>{
@@ -201,6 +276,45 @@ this.aR.queryParams.subscribe(params =>{
         }
       })
    })
+
+    this.info2.forEach(res=>{
+ 
+
+      if(res.id == x.data.productname){
+        let currentstock = parseInt(res.data.stock);
+        let newStock = currentstock - x.data.quantity;
+        this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("menu").doc(res.id).update({stock:newStock})
+      }
+    })
+
+  this.af.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("order").doc(x.id).update({completetimestamp:time.format("MMMM Do YYYY, h:mm a")})
+  }
+
+  displayTop(month:any){
+    console.log(month)
+    this.totalAmount = 0
+    this.topSale = []
+    this.order.forEach(res=>{
+
+      if(res.status == "completed"){
+        let timestamp = res.completetimestamp
+        let getMonth = timestamp.split(' ')[0]
+        if(getMonth == month){
+          this.topSale.push(res)
+        }
+      }
+     
+
+      
+    })
+   
+
+    console.log(this.topSale)
+   
+
+    this.topSale.forEach(res=>{
+      this.totalAmount += (res.amount * res.quantity)
+    })
   }
 
 }

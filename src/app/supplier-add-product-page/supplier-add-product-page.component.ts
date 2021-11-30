@@ -30,6 +30,7 @@ export class SupplierAddProductPageComponent implements OnInit {
   add() {
     this.ref.close("success")
     this.fa.authState.subscribe((res) => {
+
       this.fs
         .collection('Supplier')
         .doc(res?.uid)

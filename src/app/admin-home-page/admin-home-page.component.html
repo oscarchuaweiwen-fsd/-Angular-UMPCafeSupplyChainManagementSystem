@@ -2,10 +2,7 @@
 <app-adminnavbarpage></app-adminnavbarpage>
 
 
-<h4>Order Activity</h4>
-
-{{info | json}}
-
+<h4 [ngStyle]="{'margin':'15px'}">Order Activity</h4>
 
 <div class="order">
   
@@ -42,7 +39,58 @@
         </p-dialog>
     
     </div>
-    <div class="o3">
+    <div class="o3" (click)="showCompleted()">
         <p>COMPLETED</p>
+        <h3 id="top">{{completedLength}}</h3>
+        <p-dialog header="TO BE DELIVERED" [(visible)]="completed">
+            <ul class="list-group" *ngFor="let x of info">
+                <li class="list-group-item" *ngIf="x.data.status =='completed'">
+                    
+                <h6>Food name: {{x.data.productname}}</h6> 
+                <h6>Food Quantity: {{x.data.quantity}}</h6> 
+                <h6>Student Name: {{x.data.studentname}}</h6>  
+                </li>
+
+              </ul>
+        </p-dialog>
     </div>
+
+    <div class="o4" >
+        <h5 [ngStyle]="{'position':'sticky'}">Quantity in Hand <br> <h6 [ngStyle]="{'color':'grey'}">These ingredients are low stock</h6></h5>
+
+        <ul class="list-group" *ngFor="let x of inventory">
+            <li class="list-group-item" *ngIf="x.data.lowestmargin > x.data.quantity">
+                
+                <i class="fas fa-exclamation-triangle" [ngStyle]="{'color':'red'}"></i> <span id="ingredient">{{x.id}}</span> --- <span id="quantity">{{x.data.quantity}} unit</span>
+            </li>
+
+
+          </ul>
+    </div>
+
+</div>
+
+<div>
+    
+</div>
+<div class="o5">
+    <h4 [ngStyle]="{'float': 'left','margin':'15px'}">Monthly Sales</h4>
+    <p-dropdown [options]="months" [ngStyle]="month" #p [ngStyle]="{'float': 'right','margin':'10px'}" (onHide)="displayTop(p.value)"></p-dropdown>
+
+    <p [ngStyle]="{'font-size':'30px','font-weight':'bold','color':'blue'}">RM {{totalAmount| number : '1.2-2'}}</p>
+</div>
+
+
+<div class="o6">
+    <h4 [ngStyle]="{'float': 'left','margin':'15px'}">Number of Unit sold</h4>
+    <div>
+        <canvas baseChart 
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          >
+        </canvas>
+      </div>
 </div>

@@ -6,7 +6,7 @@ import {DynamicDialogRef} from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
 import * as firebase from 'firebase/app';
 import { AdminAddMenuListPageComponent } from '../admin-add-menu-list-page/admin-add-menu-list-page.component';
-
+import * as _ from 'lodash';
 
 
 @Component({
@@ -26,10 +26,16 @@ export class AdminMenuListPageComponent implements OnInit {
   ingredient2: any[] = [];
   checkStatus:any[]= [];
   checkStatus2:any[]= [];
-
-
+  display:any = false;
+  menu:any [] = [];
+  ingredientCheck:any[] = []
+  ingredientCheck2:any[] = []
+  ingredientCheck3:any[] = []
+  different:any[] = []
   x4!:any[];
   x5:any[] = [];
+  result:any[] = []; 
+
   constructor(private confirmationService: ConfirmationService,public dialogService: DialogService, public messageService: MessageService,private fs:AngularFirestore) { 
     this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').snapshotChanges().subscribe(res=>{
       this.products = [];
@@ -39,7 +45,8 @@ export class AdminMenuListPageComponent implements OnInit {
           productname:res.payload.doc.id,
           price:res.payload.doc.data().price,
           ingredient:res.payload.doc.data().ingredient,
-          imageLink:res.payload.doc.data().imageLink
+          imageLink:res.payload.doc.data().imageLink,
+          stock:res.payload.doc.data().stock
         }
 
         this.products.push(obj);
@@ -95,13 +102,29 @@ export class AdminMenuListPageComponent implements OnInit {
               if(res.id === data.ingredient){
           
                 if(res.data.quantity<=data.ingredientQuantity ){
-                  console.log(data,index)
+
                 }
               }
             })
           })
         })
       })
+    })
+
+
+
+    this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("menu").snapshotChanges().subscribe( res=>{
+      res.map(async res=>{
+        let obj = {
+          id:res.payload.doc.id,
+          data:res.payload.doc.data()
+        }
+  
+        await this.menu.push(obj)
+  
+      })
+  
+  
     })
   }
 
@@ -172,24 +195,74 @@ delete(index:any){
   // this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc("Nasi Lemak").update({ingredient:firebase.default.firestore.FieldValue.delete()})
 }
 
-update(brand:any,price:any,imageLink:any){
+update(brand:any,price:any,imageLink:any,stock:any){
   console.log(brand);
   let x = this.products[this.indexOfElement].productname;
   console.log(this.products[this.indexOfElement]);
   
   if(brand !== this.products[this.indexOfElement].productname){
-    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(brand).set({price:price,ingredient:this.ingredient2,imageLink:imageLink}).then(res=>{
+    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(brand).set({price:price,ingredient:this.ingredient2,imageLink:imageLink,stock:stock}).then(res=>{
       this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(x).delete();
     })
   }else{
-    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(x).update({price:price,ingredient:this.ingredient2,imageLink:imageLink});
+    this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').doc(x).update({price:price,ingredient:this.ingredient2,imageLink:imageLink,stock:stock});
   }
   }
+
+showDialog(){
+
+  this.ingredientCheck = []
+  this.display = !this.display
+  this.result = [];
+  this.different = []
+
+  this.menu.forEach(res=>{
+      console.log(res)
+      let stock = parseInt(res.data.stock)
+
+      res.data.ingredient.forEach((data:any)=>{
+
+          let obj = {
+            ingredient:data.ingredient,
+            quantity:data.ingredientQuantity * stock
+          }
+
+          this.ingredientCheck.push(obj)
+
+      })
+  })
+
+  console.log(this.ingredientCheck)
+
+  this.result = this.ingredientCheck.reduce((unique, o) => {
+    if (!unique.some((obj:any) => obj.ingredient === o.ingredient )) {
+      unique.push(o);
+    } else {
+      this.different.push(o);
+    }
+    return unique;
+  }, []);
+
+  this.different.forEach(res=>{
+    this.result.forEach(data=>{
+      if(res.ingredient == data.ingredient){
+        let temp = 0;
+        temp = data.quantity + res.quantity
   
-hello(x:any){
-  console.log(x);
+          data.quantity = temp
+  
+
+      }
+    })
+  })
+
+
+  console.log(this.result)
+
+
+  
 }
- 
+
 }
 
 

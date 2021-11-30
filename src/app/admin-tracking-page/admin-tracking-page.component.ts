@@ -180,7 +180,8 @@ export class AdminTrackingPageComponent implements OnInit {
         ordertimestamp:x.data.ordertimestamp,
         completetimestamp:x.data.completetimestamp,
         preparetimestamp:x.data.preparetimestamp,
-        shiptimestamp:x.data.shiptimestamp
+        shiptimestamp:x.data.shiptimestamp,
+        stockChecking:x.data.quantity
       });
   }
 

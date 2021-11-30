@@ -13,17 +13,17 @@ export class StudentHomePageComponent implements OnInit {
   tiles:any[] = [
    
   ];
-
+  tiles2:any[] = []
   filter3:any = []
   info:any[] = []
   imageUrl:any;
-  photo = "https://m.buro247.my/local/images/buro/nasi-lemak-history-malaysia-ca.jpg";
   uid:any;
   display:any = false;
    constructor(private fs:AngularFirestore,private fa: AngularFireAuth,private router:ActivatedRoute,private route:Router) {
 
     this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('menu').snapshotChanges().subscribe(res=>{
       this.tiles = []
+      this.tiles2 = []
       res.map(res=>{
         let obj = {
           id:res.payload.doc.id,
@@ -34,7 +34,15 @@ export class StudentHomePageComponent implements OnInit {
         this.tiles.push(obj)
         console.log(this.tiles)
       })
+
+      this.tiles2 = this.tiles.filter(res=>{
+        return res.data.stock > 0 
+      })
+
+      console.log(this.tiles2)
     })
+
+
     
     this.fa.authState.subscribe(async res=>{
       this.uid = await res?.uid
@@ -81,7 +89,8 @@ export class StudentHomePageComponent implements OnInit {
             quantity:data['quantity'],
             amount:data['amount'],
             studentname:data['studentname'],
-            status:"await"
+            status:"await",
+            completetimestamp:null
           }
           this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("order").doc(data['trackingnumber']).set(obj)
         })
