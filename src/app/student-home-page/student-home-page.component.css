@@ -43,10 +43,6 @@ mat-grid-tile:hover{
     background-size: cover;
 }
 
-p{
-        border:1px solid black;
-        margin-right:1rem;
-}
 
 .container{
         display:flex;

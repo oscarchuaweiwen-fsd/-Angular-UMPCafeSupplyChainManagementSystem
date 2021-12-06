@@ -1,115 +1,119 @@
 <app-adminnavbarpage></app-adminnavbarpage>
 
-<div class="title">
-    <h4>Shopping Cart</h4>
+
+<div style="width:80%; margin:auto">
+    <div class="title">
+        <h4>Shopping Cart</h4>
+    </div>
+    <div class="card" >
+    
+    <p-table [value]="products" [(selection)]="selectedProducts3" dataKey="brand" >
+    
+    <ng-template pTemplate="header">
+    
+    <tr>
+    
+    <th style="width: 3rem">
+    
+    </th>
+    <th>Company Name</th>
+    
+    <th>Product</th>
+    
+    <th>Unit Price</th>
+    
+    <th>Quantity</th>
+    
+    <th>Total Price</th>
+    
+    <th>Action</th>
+    
+    </tr>
+    
+    
+    
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+    
+    
+    
+    <tr>
+    
+    <td>
+    
+    <!-- <p-tableCheckbox
+    
+    [value]="product"
+    
+    (click)="info(product, rowIndex,e,$event)"
+    
+    #e
+    
+    ></p-tableCheckbox> -->
+    
+    
+    </td>
+    
+    <td>{{product.compname}}</td>
+    
+    <td>{{ product.brand }}</td>
+    
+    <td>{{ product.price }} </td>
+    
+    <td>
+    
+    <p-inputNumber
+    
+    [disabled]="x3.length>0"
+    
+    [style.marginLeft]="'-6rem'"
+    
+    [style.textAlign]="'center'"
+    
+    [(ngModel)]="products[rowIndex].quantity"
+    [min]="1"
+    [max] = "product.stock"
+    [showButtons]="true"
+    
+    buttonLayout="horizontal"
+    
+    spinnerMode="horizontal"
+    
+    [step]="1"
+    
+    #p
+    
+    decrementButtonClass="p-button-danger"
+    
+    incrementButtonClass="p-button-success"
+    
+    incrementButtonIcon="pi pi-plus"
+    
+    decrementButtonIcon="pi pi-minus"
+    
+    (click)="quantityControl(rowIndex,products[rowIndex].quantity,product.brand,product.price)"
+    
+    >
+    
+    </p-inputNumber>
+    
+    </td>
+    
+    <td>{{ product.totalprice }}</td>
+    
+    <td><button mat-raised-button (click)="deleteCart(product.brand,products.length)" [disabled]='x3.length>0'>Delete</button>
+        <button mat-raised-button (click)="pay(product.compname,product.price,product.brand,product.quantity,product.category,product)" [disabled]='x3.length>0'>Pay</button>
+    </td>
+    
+    </tr>
+    
+    </ng-template>
+    
+    </p-table>
+    
+    </div>
+    
+    <!-- <mat-card>Total ({{ overallquantity }}): RM {{ overallprice }} <span><button mat-raised-button (click)="checkout()" [disabled]='x3.length ==0'>Check Out</button></span></mat-card> -->
+    
 </div>
-<div class="card" >
-
-<p-table [value]="products" [(selection)]="selectedProducts3" dataKey="brand" >
-
-<ng-template pTemplate="header">
-
-<tr>
-
-<th style="width: 3rem">
-
-</th>
-<th>Company Name</th>
-
-<th>Product</th>
-
-<th>Unit Price</th>
-
-<th>Quantity</th>
-
-<th>Total Price</th>
-
-<th>Action</th>
-
-</tr>
-
-
-
-</ng-template>
-
-<ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
-
-
-
-<tr>
-
-<td>
-
-<!-- <p-tableCheckbox
-
-[value]="product"
-
-(click)="info(product, rowIndex,e,$event)"
-
-#e
-
-></p-tableCheckbox> -->
-
-
-</td>
-
-<td>{{product.compname}}</td>
-
-<td>{{ product.brand }}</td>
-
-<td>{{ product.price }} </td>
-
-<td>
-
-<p-inputNumber
-
-[disabled]="x3.length>0"
-
-[style.marginLeft]="'-6rem'"
-
-[style.textAlign]="'center'"
-
-[(ngModel)]="products[rowIndex].quantity"
-[min]="1"
-[max] = "product.stock"
-[showButtons]="true"
-
-buttonLayout="horizontal"
-
-spinnerMode="horizontal"
-
-[step]="1"
-
-#p
-
-decrementButtonClass="p-button-danger"
-
-incrementButtonClass="p-button-success"
-
-incrementButtonIcon="pi pi-plus"
-
-decrementButtonIcon="pi pi-minus"
-
-(click)="quantityControl(rowIndex,products[rowIndex].quantity,product.brand,product.price)"
-
->
-
-</p-inputNumber>
-
-</td>
-
-<td>{{ product.totalprice }}</td>
-
-<td><button mat-raised-button (click)="deleteCart(product.brand,products.length)" [disabled]='x3.length>0'>Delete</button>
-    <button mat-raised-button (click)="pay(product.compname,product.price,product.brand,product.quantity,product.category,product)" [disabled]='x3.length>0'>Pay</button>
-</td>
-
-</tr>
-
-</ng-template>
-
-</p-table>
-
-</div>
-
-<!-- <mat-card>Total ({{ overallquantity }}): RM {{ overallprice }} <span><button mat-raised-button (click)="checkout()" [disabled]='x3.length ==0'>Check Out</button></span></mat-card> -->

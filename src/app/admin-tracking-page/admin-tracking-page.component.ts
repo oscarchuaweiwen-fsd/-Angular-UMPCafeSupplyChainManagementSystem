@@ -181,7 +181,8 @@ export class AdminTrackingPageComponent implements OnInit {
         completetimestamp:x.data.completetimestamp,
         preparetimestamp:x.data.preparetimestamp,
         shiptimestamp:x.data.shiptimestamp,
-        stockChecking:x.data.quantity
+        stockChecking:x.data.quantity,
+        trackingTotal:x.data.amount
       });
   }
 

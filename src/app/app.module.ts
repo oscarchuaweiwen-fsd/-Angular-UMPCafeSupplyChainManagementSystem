@@ -93,7 +93,7 @@ import { StudentProfilePageComponent } from './student-profile-page/student-prof
 import { StudentCartPageComponent } from './student-cart-page/student-cart-page.component';
 import {MatListModule} from '@angular/material/list'
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
-
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 @NgModule({
   declarations: [
@@ -184,7 +184,8 @@ import {VirtualScrollerModule} from 'primeng/virtualscroller';
     NgChartsModule,
     MatGridListModule,
     MatListModule,
-    VirtualScrollerModule
+    VirtualScrollerModule,
+    OverlayPanelModule
   ],
   providers: [
     AuthGuard,

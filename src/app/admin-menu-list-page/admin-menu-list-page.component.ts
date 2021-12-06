@@ -7,6 +7,7 @@ import { ConfirmationService } from 'primeng/api';
 import * as firebase from 'firebase/app';
 import { AdminAddMenuListPageComponent } from '../admin-add-menu-list-page/admin-add-menu-list-page.component';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 
 @Component({
@@ -35,8 +36,20 @@ export class AdminMenuListPageComponent implements OnInit {
   x4!:any[];
   x5:any[] = [];
   result:any[] = []; 
+  // Tracking Data
+  trackingData:any[] = [];
+  displayBasic:boolean = false
+  trackingIngredient:any[]= [];
+  newData:number = 0;
+  display3:any = false;
+  checklistarray:any[] =[];
+  checklisthistory:any[] = [];
+ time = moment();
+  totalQuantity:any = 0;
+ close:boolean = false;
 
   constructor(private confirmationService: ConfirmationService,public dialogService: DialogService, public messageService: MessageService,private fs:AngularFirestore) { 
+
     this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('menu').snapshotChanges().subscribe(res=>{
       this.products = [];
       res.map(res=>{
@@ -126,8 +139,28 @@ export class AdminMenuListPageComponent implements OnInit {
   
   
     })
+
+    this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("payment").get().subscribe(res=>{
+      this.trackingData = []
+      res.forEach(res=>{
+        if(res.data().status === "finished" && res.data().trackingTotal > 0){
+          let obj = {
+            trackingID:res.id,
+            trackingData:res.data()
+          }
+          console.log(res.data())
+
+          this.trackingData.push(obj)
+        }
+      
+      })
+    })
+
+   
   }
 
+
+  // NG on Init
   ngOnInit(): void {
     this.showQuantity()
   }
@@ -262,6 +295,102 @@ showDialog(){
 
   
 }
+
+triggerDisplay(){
+  this.displayBasic = !this.displayBasic
+}
+
+addTrackingIngredient(p:any,trackingID:any,trackingData:any){
+
+  this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("payment").doc(trackingID).get().subscribe( res=>{
+    console.log(res.data()?.trackingTotal)
+
+    this.newData =  res.data()?.trackingTotal() - p;
+
+  })
+
+  this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("payment").doc(trackingID).update({trackingTotal:this.newData})
+
+  let obj = {
+    value:p,
+    trackingID:trackingID,
+    trackingData:trackingData
+  }
+
+    this.trackingIngredient.push(obj)
+}
+
+
+
+checklist(ingredient:any){
+  this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("payment").snapshotChanges().subscribe(res=>{
+    this.checklistarray = []
+      res.map(res=>{
+        if(res.payload.doc.data().category === ingredient && res.payload.doc.data().trackingTotal>0){
+          let obj={
+            id:res.payload.doc.id,
+            data:res.payload.doc.data()
+          }
+          this.checklistarray.push(obj)
+        }
+      })
+  })
+}
+
+  showDialog2(){
+    this.display3 = !this.display3
+  }
+
+  addTrackingHistory(category:any,trackingid:any,companyname:any,productname:any,trackingAmount:any,trackingTotal:any){
+
+    let obj = {
+      id:trackingid,
+      category:category,
+      companyname:companyname,
+      productname:productname,
+      trackingAmount:trackingAmount,
+      time:this.time.format("MMMM Do YYYY , h:mm:ss a").concat(` - ${trackingid}`)
+    }
+
+
+    this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("payment").doc(trackingid).update({trackingTotal:trackingTotal - trackingAmount})
+
+    this.checklisthistory.push(obj)
+  }
+
+  removeTrackingHistory(id:any,trackingAmount:any){
+    console.log(id)
+    console.log(this.checklisthistory)
+     const index = this.checklisthistory.findIndex((res:any)=>{ return res.trackingAmount === trackingAmount})
+    this.checklisthistory.splice(index,1);
+
+    console.log(index)
+
+    this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("payment").doc(id).get().subscribe(res=>{
+      console.log(    res.data()?.trackingTotal)
+      console.log(trackingAmount)
+      
+      this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("payment").doc(id).update({trackingTotal:res.data()?.trackingTotal+parseInt(trackingAmount)})
+
+     
+    })
+
+
+  } 
+
+  addtrackinghistory2(y:any){
+    console.log(y)
+
+    y.forEach((res:any)=>{
+      this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("trackinghistory").doc(res.time).set(res)
+
+    })
+
+    setInterval((()=>{
+      return window.location.reload()
+    }),3000)
+  }
+
 
 }
 

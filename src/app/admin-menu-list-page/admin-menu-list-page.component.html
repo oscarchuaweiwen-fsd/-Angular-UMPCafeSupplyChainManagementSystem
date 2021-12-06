@@ -35,7 +35,6 @@
                 <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
                 <th pSortableColumn="category">Ingredient <p-sortIcon field="category"></p-sortIcon></th>
                 <th pSortableColumn="rating">Stock <p-sortIcon field="rating"></p-sortIcon></th>
-                <th pSortableColumn="rating">Tracking Ingredient<p-sortIcon field="rating"></p-sortIcon></th>
                 <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
                 <th></th>
             </tr>
@@ -50,7 +49,7 @@
                     <li class="list-group-item" *ngFor="let x of product.ingredient">{{x.ingredient}} - {{x.ingredientQuantity}} unit</li>
                 </ul></td>
                 <td>{{product.stock}}</td>
-                <td><button mat-raised-button></button></td>
+
                 <td ><span *ngIf="product.stock >= 10" [class]="'product-badge '" [ngClass]="{'status-instock':true}">Available</span>
                     <span *ngIf="product.stock < 10 && product.stock != 0" [class]="'product-badge '" [ngClass]="{'status-lowstock':true}">StockLow</span>
                     <span *ngIf="product.stock ==0" [class]="'product-badge '" [ngClass]="{'status-outstock':true}">StockOut</span>
@@ -126,7 +125,49 @@
         <li class="list-group-item" *ngFor="let x of result">
             <p>{{x.ingredient}}</p>
             <p>{{x.quantity}} Unit</p>
+
+            <button (click)="showDialog2(); checklist(x.ingredient);">Add {{x.ingredient}}Tracking Ingredient</button>
         </li>
-       
+
+
       </ul>
+
+
+</p-dialog>
+
+
+<p-dialog header="Ingredient Stock" [(visible)]="display3" closeIcon="null">
+    <ul>
+        <li *ngFor="let x of checklistarray">
+            
+            <p>
+                Company Name - {{x.data.compname}}
+            </p>
+
+            <p>
+                Category - {{x.data.category}}
+            </p>
+           
+            <p>
+                Product Name - {{x.data.productname}}
+            </p>
+            <input type="number" value={{x.data.trackingTotal}} min="0" max={{x.data.trackingTotal}} #p>
+
+            <button (click)="addTrackingHistory(x.data.category,x.id,x.data.compname,x.data.productname,p.value,x.data.trackingTotal)">Add to Tracking History</button>
+        </li>
+    </ul>
+
+    <h6>Ingredient History</h6>
+
+    <ul>
+        <li *ngFor="let y of checklisthistory">
+            {{y|json}}
+
+            <button (click)="removeTrackingHistory(y.id,y.trackingAmount)" mat-raised-button>Remove</button>
+        </li>
+
+        <p>Total Quantity: {{totalQuantity}}</p>
+    </ul>
+    <button *ngIf="checklisthistory.length ===0" (click)="showDialog2()">close</button>
+    <button   mat-raised-button (click)="addtrackinghistory2(checklisthistory); showDialog2();">Confirm</button>
 </p-dialog>

@@ -5,6 +5,8 @@
   <div class="container">
     <h4>Menu</h4>
 
+    <button mat-raised-button (click)="toggle()">Ingredient Used Today</button>
+
     <button
     #menuTrigger="matMenuTrigger"
     (mouseenter)="menuTrigger.openMenu()"
@@ -19,6 +21,8 @@
       >shopping_cart</mat-icon
     >
   </button>
+
+
   <mat-menu #menu="matMenu" [overlapTrigger]="false">
     <span (mouseleave)="menuTrigger.closeMenu()">
       <button mat-menu-item *ngFor="let row of info">
@@ -36,6 +40,12 @@
           <img alt="Card" [src]="x.data.imageLink">
       </ng-template>
       <ng-template pTemplate="footer">
+          Ingredient Used:
+        <ul>
+          <li *ngFor="let x of x.data.ingredient">
+            <p >{{x.ingredient}}</p>
+          </li>
+        </ul>
           <p-button label="Add to Cart" icon="pi pi-shopping-cart" (click)="addtocart(x)" ></p-button>
         
       </ng-template>
@@ -48,5 +58,14 @@
 </p-dialog>
 
   
+
+
+<p-dialog header="Title" [(visible)]="display2">
+  <ul>
+    <li *ngFor="let x of trackingHistory">
+      {{x|json}}
+    </li>
+  </ul>
+</p-dialog>
 
 </div>

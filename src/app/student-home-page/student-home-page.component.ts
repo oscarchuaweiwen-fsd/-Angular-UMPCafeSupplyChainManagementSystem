@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-student-home-page',
@@ -10,6 +11,9 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   styleUrls: ['./student-home-page.component.css']
 })
 export class StudentHomePageComponent implements OnInit {
+
+  time = moment();
+
   tiles:any[] = [
    
   ];
@@ -19,6 +23,10 @@ export class StudentHomePageComponent implements OnInit {
   imageUrl:any;
   uid:any;
   display:any = false;
+  display2:any = false;
+  ingredient:any[] = []
+  ingredient2:any[] = []
+  trackingHistory:any[]= []
    constructor(private fs:AngularFirestore,private fa: AngularFireAuth,private router:ActivatedRoute,private route:Router) {
 
     this.fs.collection('Admin').doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection('menu').snapshotChanges().subscribe(res=>{
@@ -40,6 +48,42 @@ export class StudentHomePageComponent implements OnInit {
       })
 
       console.log(this.tiles2)
+
+      this.tiles2.forEach(res=>{
+        res.data.ingredient.forEach((res:any)=>{
+          console.log(res.ingredient)
+          this.ingredient.push(res.ingredient)
+        })
+      })
+
+      this.ingredient2 = [...this.ingredient];
+
+      console.log(this.ingredient2)
+
+    
+    console.log();
+
+    this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("trackinghistory").get().subscribe(res=>{
+      res.forEach(res=>{
+
+        console.log(res.id.split(" "))
+        const split = res.id.split(" ").slice(0,3)
+        const join  = split.join(" ")
+        if(this.time.format("MMMM Do YYYY") === join){
+          let obj = {
+            id:res.id,
+            data:res.data()
+          }
+          this.trackingHistory.push(obj)
+        }
+
+      
+        console.log(this.trackingHistory)
+      })
+    })
+
+
+
     })
 
 
@@ -96,9 +140,13 @@ export class StudentHomePageComponent implements OnInit {
         })
       }
     })
+
+   
    }
 
   ngOnInit(): void {
+
+   
   }
   
   addtocart(tile:any){
@@ -131,7 +179,6 @@ export class StudentHomePageComponent implements OnInit {
     }
 
    
-    
   
 
   }
@@ -140,4 +187,8 @@ export class StudentHomePageComponent implements OnInit {
     this.route.navigateByUrl("/studentpage")
   }
 
+
+  toggle(){
+    this.display2 = !this.display2
+  }
 }
