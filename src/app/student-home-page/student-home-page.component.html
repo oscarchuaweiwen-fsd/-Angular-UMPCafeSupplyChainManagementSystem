@@ -60,10 +60,14 @@
   
 
 
-<p-dialog header="Title" [(visible)]="display2">
+<p-dialog header="Ingredient Used Today" [(visible)]="display2">
   <ul>
+    <!--  { "category": "Egg", "id": "UMPSC22247652MY", "companyname": "Oscar Food Sdn Bhd", "productname": "Ramly", "time": "December 23rd 2021 , 1:47:54 pm - UMPSC22247652MY", "trackingAmount": "5" } } -->
     <li *ngFor="let x of trackingHistory">
-      {{x|json}}
+      <p>Tracking Number: {{x.data.id}}</p>
+      <p>Company Name: {{x.data.companyname}}</p>
+      <p>Category: {{x.data.category}}</p>
+      
     </li>
   </ul>
 </p-dialog>

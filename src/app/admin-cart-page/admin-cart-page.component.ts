@@ -59,14 +59,19 @@ export class AdminCartPageComponent implements OnInit {
 
   disablequantity!: boolean;
   isGettingCheckout: boolean = false;
-  stripe:any;
+  stripe: any;
   action!: string;
   productname: any;
   productprice: any;
   uid: any;
-  tracking_number:any;
+  tracking_number: any;
 
-  constructor(private fs: AngularFirestore, private router: Router,private fns:AngularFireFunctions,private aR:ActivatedRoute) {
+  constructor(
+    private fs: AngularFirestore,
+    private router: Router,
+    private fns: AngularFireFunctions,
+    private aR: ActivatedRoute
+  ) {
     this.fs
 
       .collection('Admin')
@@ -96,7 +101,7 @@ export class AdminCartPageComponent implements OnInit {
 
             category: res.payload.doc.data().category,
 
-            stock:res.payload.doc.data().stock,
+            stock: res.payload.doc.data().stock,
 
             totalprice: this.totalprice,
           };
@@ -111,7 +116,6 @@ export class AdminCartPageComponent implements OnInit {
       .collection('Admin')
       .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
       .collection('checkout');
-
   }
 
   ngOnInit(): void {}
@@ -250,7 +254,7 @@ export class AdminCartPageComponent implements OnInit {
     });
   }
 
-  deleteCart(brand: any,product:any) {
+  deleteCart(brand: any, product: any) {
     console.log(product);
 
     this.fs
@@ -260,38 +264,65 @@ export class AdminCartPageComponent implements OnInit {
       .doc(brand)
       .delete();
 
-      if(product ==1){
-        this.router.navigateByUrl('/adminaddorder')
-      }
+    if (product == 1) {
+      this.router.navigateByUrl('/adminaddorder');
+    }
   }
 
   // checkout() {
   //   this.router.navigateByUrl('/admincheckoutpage', { state: this.x1 });
   // }
 
-  async pay(compname1:any,finalPrice:any,finalProduct:any,quantity1:any,category1:any,product:any) {
-    
-    console.log(category1,product)
+  async pay(
+    compname1: any,
+    finalPrice: any,
+    finalProduct: any,
+    quantity1: any,
+    category1: any,
+    product: any
+  ) {
+    console.log(category1, product);
     this.isGettingCheckout = true;
 
     this.stripe = await loadStripe(
       'pk_test_51JWyo0FAyW0TeHuLxronXkW18xbGcUCeGeOnk0CCq3W6Kl8gZ3OViSOqMctnmuMTptcchsU1ZsieUf4LAMHCfwxu00Hd2Nl8Rz'
     );
 
-
-    this.tracking_number = `UMPSC${Math.floor( Math.random() * 19999999 ) + 10000000}MY`;
+    this.tracking_number = `UMPSC${
+      Math.floor(Math.random() * 19999999) + 10000000
+    }MY`;
     const createCheckoutSession = this.fns.httpsCallable('stripeCheckout');
     createCheckoutSession({
       productname: finalProduct,
-      quantity:quantity1,
-      amount:finalPrice,
-      compname:compname1,
-      category:category1,
-      trackingnumber:this.tracking_number
+      quantity: quantity1,
+      amount: finalPrice,
+      compname: compname1,
+      category: category1,
+      trackingnumber: this.tracking_number,
     }).subscribe(async (result) => {
       console.log({ result });
       this.uid = result;
-      await this.fs.collection('Admin').doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2').collection('payment').doc(this.tracking_number).set({productname:finalProduct,quantity:quantity1,compname:compname1,amount:finalPrice,status:'unpaid',uid:this.uid,category:category1,ordertimestamp:null,preparetimestamp:null,shiptimestamp:null,completetimestamp:null,receivedstatus:false,ratingstatus:false});
+      await this.fs
+        .collection('Admin')
+        .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
+        .collection('payment')
+        .doc(this.tracking_number)
+        .set({
+          productname: finalProduct,
+          quantity: quantity1,
+          compname: compname1,
+          amount: finalPrice,
+          status: 'unpaid',
+          uid: this.uid,
+          category: category1,
+          ordertimestamp: null,
+          preparetimestamp: null,
+          shiptimestamp: null,
+          completetimestamp: null,
+          receivedstatus: false,
+          ratingstatus: false,
+          trackingTotal:quantity1
+        });
       localStorage.setItem('stripeCheckout', result);
       this.stripe
         .redirectToCheckout({
@@ -301,9 +332,5 @@ export class AdminCartPageComponent implements OnInit {
           console.log(result.error.message);
         });
     });
-
-   
-    
   }
-
 }

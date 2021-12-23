@@ -3,171 +3,323 @@
 <p-toast></p-toast>
 
 <div class="card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="show()"></button>
-            
-        </ng-template>
-        <ng-template pTemplate="right">
-            
-            <button pButton pRipple label="Ingredient Checklist" icon="pi pi-info-circle" class="p-button-info p-mr-2" (click)="showDialog()"></button>
-            
-        </ng-template>
-    </p-toolbar>
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="show()"
+      ></button>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        pRipple
+        label="Ingredient Checklist"
+        icon="pi pi-info-circle"
+        class="p-button-info p-mr-2"
+        (click)="showDialog()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
 
-    <p-table #dt [value]="products" [rows]="5" [paginator]="true" [globalFilterFields]="['productname','price','rating','inventoryStatus']" responsiveLayout="scroll"
-        [(selection)]="selectedProducts" [rowHover]="true" dataKey="productname"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Manage Products</h5>
-                <span class="p-input-icon-right">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
-                </span>
-            </div>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-              
-                <th pSortableColumn="productname">Name <p-sortIcon field="name"></p-sortIcon></th>
-                <th>Image</th>
-                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                <th pSortableColumn="category">Ingredient <p-sortIcon field="category"></p-sortIcon></th>
-                <th pSortableColumn="rating">Stock <p-sortIcon field="rating"></p-sortIcon></th>
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-                <th></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product let-i='rowIndex'>
-            <tr>
-               
-                <td>{{product.productname}}</td>
-                <td><img [alt]="product.name" [src]="product.imageLink" width="100" class="p-shadow-4" /></td>
-                <td>{{product.price | currency:'RM'}}</td>
-                <td><ul class="list-group">
-                    <li class="list-group-item" *ngFor="let x of product.ingredient">{{x.ingredient}} - {{x.ingredientQuantity}} unit</li>
-                </ul></td>
-                <td>{{product.stock}}</td>
+  <p-table
+    #dt
+    [value]="products"
+    [rows]="5"
+    [paginator]="true"
+    [globalFilterFields]="['productname', 'price', 'rating', 'inventoryStatus']"
+    responsiveLayout="scroll"
+    [(selection)]="selectedProducts"
+    [rowHover]="true"
+    dataKey="productname"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Products</h5>
+        <span class="p-input-icon-right">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            placeholder="Search..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="productname">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th>Image</th>
+        <th pSortableColumn="price">
+          Price <p-sortIcon field="price"></p-sortIcon>
+        </th>
+        <th pSortableColumn="category">
+          Ingredient <p-sortIcon field="category"></p-sortIcon>
+        </th>
+        <th pSortableColumn="rating">
+          Stock <p-sortIcon field="rating"></p-sortIcon>
+        </th>
+        <th pSortableColumn="inventoryStatus">
+          Status <p-sortIcon field="inventoryStatus"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-i="rowIndex">
+      <tr>
+        <td>{{ product.productname }}</td>
+        <td>
+          <img
+            [alt]="product.name"
+            [src]="product.imageLink"
+            width="100"
+            class="p-shadow-4"
+          />
+        </td>
+        <td>{{ product.price | currency: "RM" }}</td>
+        <td>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let x of product.ingredient">
+              {{ x.ingredient }} - {{ x.ingredientQuantity }} unit
+            </li>
+          </ul>
+        </td>
+        <td>{{ product.stock }}</td>
 
-                <td ><span *ngIf="product.stock >= 10" [class]="'product-badge '" [ngClass]="{'status-instock':true}">Available</span>
-                    <span *ngIf="product.stock < 10 && product.stock != 0" [class]="'product-badge '" [ngClass]="{'status-lowstock':true}">StockLow</span>
-                    <span *ngIf="product.stock ==0" [class]="'product-badge '" [ngClass]="{'status-outstock':true}">StockOut</span>
-                </td>
-                <td>
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="show2(product,i)"></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(product.productname)"></button>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                In total there are {{products ? products.length : 0 }} products.
-            </div>
-        </ng-template>
-    </p-table>
+        <td>
+          <span
+            *ngIf="product.stock >= 10"
+            [class]="'product-badge '"
+            [ngClass]="{ 'status-instock': true }"
+            >Available</span
+          >
+          <span
+            *ngIf="product.stock < 10 && product.stock != 0"
+            [class]="'product-badge '"
+            [ngClass]="{ 'status-lowstock': true }"
+            >StockLow</span
+          >
+          <span
+            *ngIf="product.stock == 0"
+            [class]="'product-badge '"
+            [ngClass]="{ 'status-outstock': true }"
+            >StockOut</span
+          >
+        </td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2"
+            (click)="show2(product, i)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteProduct(product.productname)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ products ? products.length : 0 }} products.
+      </div>
+    </ng-template>
+  </p-table>
 </div>
 
-<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true" styleClass="p-fluid">
-    <form action="">
-        <div class="p-fluid">
-            <div class="p-field">
-                <label for="firstname1">Product Name</label>
-                <input id="firstname1" type="text" pInputText  value={{products[indexOfElement]?.productname}} #p name="productname"> 
-            </div>
-            <div class="p-field">
-                <label for="lastname1">Product Price</label>
-                <input id="lastname1" type="text" pInputText value={{products[indexOfElement]?.price}} #pp name="productprice"> 
-            </div>
+<p-dialog
+  [(visible)]="productDialog"
+  [style]="{ width: '450px' }"
+  header="Product Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <form action="">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="firstname1">Product Name</label>
+        <input
+          id="firstname1"
+          type="text"
+          pInputText
+          value="{{ products[indexOfElement]?.productname }}"
+          #p
+          name="productname"
+        />
+      </div>
+      <div class="p-field">
+        <label for="lastname1">Product Price</label>
+        <input
+          id="lastname1"
+          type="text"
+          pInputText
+          value="{{ products[indexOfElement]?.price }}"
+          #pp
+          name="productprice"
+        />
+      </div>
 
-            <div class="p-field">
-                <label for="lastname1">Product Image Link</label>
-                <input id="lastname1" type="text" pInputText value={{products[indexOfElement]?.imageLink}} #il name="productprice"> 
-            </div>
-    
-            <div class="p-field" >
-                <p>Image Preview</p>
-                <img [src]="il.value" width="100"  alt="">
-            </div>
-     
-            <div class="p-field">
-                <label for="lastname1">Product Stock Quantity</label>
-                <input id="lastname1" type="text" pInputText value={{products[indexOfElement]?.stock}} #s name="productprice"> 
-            </div>
+      <div class="p-field">
+        <label for="lastname1">Product Image Link</label>
+        <input
+          id="lastname1"
+          type="text"
+          pInputText
+          value="{{ products[indexOfElement]?.imageLink }}"
+          #il
+          name="productprice"
+        />
+      </div>
 
+      <div class="p-field">
+        <p>Image Preview</p>
+        <img [src]="il.value" width="100" alt="" />
+      </div>
 
-            <div class="p-field">
-                <label for="lastname1">Ingredient Name (Needed)</label>
-                <input id="lastname1" type="text" pInputText #i> 
-            </div>
-    
-            <div class="p-field">
-                <label for="lastname1">Ingredient Quantity (Needed)</label>
-                <input id="lastname1" type="text" pInputText #iq> 
-            </div>
-    
-            <button mat-raised-button (click)="addNewIngredient(i,iq)">Add</button>
-    
-            <ul class="list-group">
-                <li class="list-group-item" *ngFor="let x of ingredient2;let i=index">{{x|json}} <button mat-raised-button (click)="delete(i)">Delete</button></li>
-              </ul>
-        </div>
-    
-        <button mat-raised-button (click)="update(p.value,pp.value,il.value,s.value)">Update</button>
-    </form>
+      <div class="p-field">
+        <label for="lastname1">Product Stock Quantity</label>
+        <input
+          id="lastname1"
+          type="text"
+          pInputText
+          value="{{ products[indexOfElement]?.stock }}"
+          #s
+          name="productprice"
+        />
+      </div>
+
+      <div class="p-field">
+        <label for="lastname1">Ingredient Name (Needed)</label>
+        <input id="lastname1" type="text" pInputText #i />
+      </div>
+
+      <div class="p-field">
+        <label for="lastname1">Ingredient Quantity (Needed)</label>
+        <input id="lastname1" type="text" pInputText #iq />
+      </div>
+
+      <button mat-raised-button (click)="addNewIngredient(i, iq)">Add</button>
+
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let x of ingredient2; let i = index"
+        >
+          Ingredient Name: {{ x.ingredient }} <br />
+          Ingredient Quantity:{{ x.ingredientQuantity }}
+          <button mat-raised-button (click)="delete(i)">Delete</button>
+        </li>
+      </ul>
+    </div>
+
+    <button
+      mat-raised-button
+      (click)="update(p.value, pp.value, il.value, s.value)"
+      [ngStyle]="{ 'margin-left': '20px' }"
+    >
+      Update
+    </button>
+  </form>
 </p-dialog>
 
-
-<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
 <p-dialog header="Ingredient Checklist" [(visible)]="display">
-    <ul class="list-group">
-        <li class="list-group-item" *ngFor="let x of result">
-            <p>{{x.ingredient}}</p>
-            <p>{{x.quantity}} Unit</p>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let x of result">
+      <p>{{ x.ingredient }}</p>
+      <p>{{ x.quantity }} Unit</p>
 
-            <button (click)="showDialog2(); checklist(x.ingredient);">Add {{x.ingredient}}Tracking Ingredient</button>
-        </li>
-
-
-      </ul>
-
-
+      <button
+        (click)="showDialog2(); checklist(x.ingredient)"
+        mat-raised-button
+      >
+        Add {{ x.ingredient }} Tracking Ingredient
+      </button>
+    </li>
+  </ul>
 </p-dialog>
 
-
 <p-dialog header="Ingredient Stock" [(visible)]="display3" closeIcon="null">
-    <ul>
-        <li *ngFor="let x of checklistarray">
-            
-            <p>
-                Company Name - {{x.data.compname}}
-            </p>
+  <ul>
+    <li *ngFor="let x of checklistarray">
+      <p>Company Name - {{ x.data.compname }}</p>
 
-            <p>
-                Category - {{x.data.category}}
-            </p>
-           
-            <p>
-                Product Name - {{x.data.productname}}
-            </p>
-            <input type="number" value={{x.data.trackingTotal}} min="0" max={{x.data.trackingTotal}} #p>
+      <p>Category - {{ x.data.category }}</p>
 
-            <button (click)="addTrackingHistory(x.data.category,x.id,x.data.compname,x.data.productname,p.value,x.data.trackingTotal)">Add to Tracking History</button>
-        </li>
-    </ul>
+      <p>Product Name - {{ x.data.productname }}</p>
+      <input
+        type="number"
+        value="{{ x.data.trackingTotal }}"
+        min="0"
+        max="{{ x.data.trackingTotal }}"
+        #p
+      />
 
-    <h6>Ingredient History</h6>
+      <button
+        (click)="
+          addTrackingHistory(
+            x.data.category,
+            x.id,
+            x.data.compname,
+            x.data.productname,
+            p.value,
+            x.data.trackingTotal
+          )
+        "
+        mat-raised-button
+      >
+        Add to Tracking History
+      </button>
+    </li>
+  </ul>
 
-    <ul>
-        <li *ngFor="let y of checklisthistory">
-            {{y|json}}
+  <h6>Ingredient History</h6>
 
-            <button (click)="removeTrackingHistory(y.id,y.trackingAmount)" mat-raised-button>Remove</button>
-        </li>
+  <ul>
+    <li *ngFor="let y of checklisthistory">
+      <!-- { "id": "UMPSC22247652MY", "category": "Egg", "companyname": "Oscar Food Sdn Bhd", "productname": "Ramly", "trackingAmount": "5", "time": "December 23rd 2021 , 1:43:08 pm - UMPSC22247652MY" } -->
+      <p>Tracking ID:{{y.id}}</p>
+      <p>Category: {{y.category}}</p>
+      <p>Company Name: {{y.companyname}}</p>
+      <p>Product Name: {{y.productname}}</p>
+      <p>Amount: {{y.trackingAmount}}</p>
 
-        <p>Total Quantity: {{totalQuantity}}</p>
-    </ul>
-    <button *ngIf="checklisthistory.length ===0" (click)="showDialog2()">close</button>
-    <button   mat-raised-button (click)="addtrackinghistory2(checklisthistory); showDialog2();">Confirm</button>
+      <button
+        (click)="removeTrackingHistory(y.id, y.trackingAmount)"
+        mat-raised-button
+      >
+        Remove
+      </button>
+    </li>
+
+    <p>Total Quantity: {{ totalQuantity }}</p>
+  </ul>
+  <button
+    *ngIf="checklisthistory.length === 0"
+    (click)="showDialog2()"
+    mat-raised-button
+  >
+    Close
+  </button>
+  <button
+    mat-raised-button
+    (click)="addtrackinghistory2(checklisthistory); showDialog2()"
+  >
+    Confirm
+  </button>
 </p-dialog>
