@@ -213,6 +213,8 @@ export class AdminTrackingPageComponent implements OnInit {
                   console.log(res.data());
 
                   if (res.data().category === productInfo.data.category) {
+
+                    console.log(res.data().category);
                     if (res.data().rating === 0) {
                       let array: any[] = [];
                       array.push(this.val2);

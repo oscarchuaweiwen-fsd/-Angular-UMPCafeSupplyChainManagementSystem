@@ -1,0 +1,16 @@
+p-card{
+    width:200px;
+}
+
+h1{
+    margin-left:15px;
+    margin-top:10px;
+    text-decoration: underline;
+    text-underline-offset: 15px;
+}
+
+button{
+    position:relative;
+    left:50%;
+    right:50%;
+}

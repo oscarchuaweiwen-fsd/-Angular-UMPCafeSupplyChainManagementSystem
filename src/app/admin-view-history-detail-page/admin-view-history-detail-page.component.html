@@ -1,0 +1,20 @@
+<body>
+    <app-adminnavbarpage></app-adminnavbarpage>
+
+    <p-card >
+        <ng-template pTemplate="header">
+           <h1>{{data.category}}</h1>
+        </ng-template>
+        
+        <p>Company Name: {{data.compname}}</p>
+        <p>Product name: {{data.productname}}</p>
+        <p>Amount: RM{{data.amount | number:'.2'}}</p>
+        <p>Quantity: {{data.quantity}}</p>
+        <p>Total: RM{{data.total | number:'.2'}}</p>
+        <p>Tracking Number: {{data.trackingnumber}}</p>
+        
+
+        <button mat-raised-button [routerLink]="['/adminviewhistory/',data.category]">Back</button>
+    
+    </p-card>
+</body>

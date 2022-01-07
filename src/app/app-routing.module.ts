@@ -25,6 +25,7 @@ import { SupplierOrderPageComponent } from './supplier-order-page/supplier-order
 import { SupplierTrackingPageComponent } from './supplier-tracking-page/supplier-tracking-page.component';
 import { StudentProfilePageComponent } from './student-profile-page/student-profile-page.component';
 import { StudentCartPageComponent } from './student-cart-page/student-cart-page.component';
+import { AdminViewHistoryDetailPageComponent } from './admin-view-history-detail-page/admin-view-history-detail-page.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path:'adminmanageinv',component: AdminManageInventoryComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'adminprofile',component:AdminProfilePageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminviewhistory/:id',component:AdminPurChaseHistoryPageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
+  {path:'adminviewhistorydetail/:category/:id',component:AdminViewHistoryDetailPageComponent,canActivate: [AuthGuard,AdminAuthGuard] },
   {path:'adminaddorder',component:AdminAddOrderPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'admincartpage',component:AdminCartPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},
   {path:'admincheckoutpage',component:AdminCheckOutPageComponent,canActivate: [AuthGuard,AdminAuthGuard]},

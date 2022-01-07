@@ -94,6 +94,7 @@ import { StudentCartPageComponent } from './student-cart-page/student-cart-page.
 import {MatListModule} from '@angular/material/list'
 import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { AdminViewHistoryDetailPageComponent } from './admin-view-history-detail-page/admin-view-history-detail-page.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +128,7 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     StudentNavbarPageComponent,
     StudentProfilePageComponent,
     StudentCartPageComponent,
+    AdminViewHistoryDetailPageComponent,
  
   ],
   imports: [
