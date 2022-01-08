@@ -45,6 +45,7 @@ export class AdminMenuListPageComponent implements OnInit {
   time = moment();
   totalQuantity: any = 0;
   close: boolean = false;
+  display4: any = false;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -342,6 +343,11 @@ export class AdminMenuListPageComponent implements OnInit {
     console.log(this.result);
   }
 
+  showDialog3(){
+    this.display4 = !this.display4;
+
+  }
+
   triggerDisplay() {
     this.displayBasic = !this.displayBasic;
   }
@@ -478,5 +484,9 @@ export class AdminMenuListPageComponent implements OnInit {
     setInterval(() => {
       return window.location.reload();
     }, 3000);
+  }
+
+  addmenutoday(p:any){
+    console.log(p.target.value)
   }
 }

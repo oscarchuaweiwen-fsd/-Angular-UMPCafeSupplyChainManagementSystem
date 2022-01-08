@@ -29,7 +29,7 @@
     "apexcharts": "^3.28.1",
     "bootstrap": "^5.1.0",
     "bulma": "^0.9.3",
-    "chart.js": "^3.6.0",
+    "chart.js": "^3.7.0",
     "cors": "^2.8.5",
     "datatables.net": "^1.10.25",
     "datatables.net-dt": "^1.1.0",

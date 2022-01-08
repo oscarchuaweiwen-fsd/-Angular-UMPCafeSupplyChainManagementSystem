@@ -100,10 +100,11 @@
     
     </td>
     
-    <td>{{ product.totalprice }}</td>
+    <td>RM {{ product.totalprice | number:".2" }}</td>
     
-    <td><button mat-raised-button (click)="deleteCart(product.brand,products.length)" [disabled]='x3.length>0'>Delete</button>
-        <button mat-raised-button (click)="pay(product.compname,product.price,product.brand,product.quantity,product.category,product)" [disabled]='x3.length>0'>Pay</button>
+    <td>
+        <button mat-raised-button (click)="deleteCart(product.brand,products.length)" [disabled]='x3.length>0' [ngStyle]="{'margin-right':'5px'}">Delete</button>
+        <button mat-raised-button (click)="pay(product.compname,product.price,product.brand,product.quantity,product.category,product)" [disabled]='x3.length>0' >Pay</button>
     </td>
     
     </tr>
