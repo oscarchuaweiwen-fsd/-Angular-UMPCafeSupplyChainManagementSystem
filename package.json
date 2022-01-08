@@ -25,6 +25,7 @@
     "@angular/router": "~12.2.0",
     "@ng-bootstrap/ng-bootstrap": "^9.0.0",
     "@stripe/stripe-js": "^1.17.1",
+    "angular-google-charts": "^2.2.2",
     "angular-password-strength-meter": "^3.0.1",
     "apexcharts": "^3.28.1",
     "bootstrap": "^5.1.0",

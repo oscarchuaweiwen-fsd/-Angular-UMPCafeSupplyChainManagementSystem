@@ -1,1 +1,11 @@
 <app-suppliernavbarpage></app-suppliernavbarpage>
+
+<!-- Stock of the product, Top Product sold, Monthly sales,Tracking Status, Order Status -->
+
+<google-chart
+  [type]="'bar'"
+  [data]="chart.data"
+  [columns]="chart.columnNames"
+  [options]="chart.options"
+>
+</google-chart>

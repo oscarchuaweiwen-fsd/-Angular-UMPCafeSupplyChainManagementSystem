@@ -96,6 +96,8 @@ import {VirtualScrollerModule} from 'primeng/virtualscroller';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 import { AdminViewHistoryDetailPageComponent } from './admin-view-history-detail-page/admin-view-history-detail-page.component';
 import {ChartModule} from 'primeng/chart';
+import { GoogleChartsModule } from 'angular-google-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -189,6 +191,7 @@ import {ChartModule} from 'primeng/chart';
     VirtualScrollerModule,
     OverlayPanelModule,
     ChartModule,
+    GoogleChartsModule
   ],
   providers: [
     AuthGuard,
