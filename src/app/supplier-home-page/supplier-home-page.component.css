@@ -1,0 +1,23 @@
+.flex{
+    display:flex;
+    justify-content:space-around;
+}
+
+p-card{
+    width:200px;
+}
+
+.item{
+    margin-top:20px;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    height:300px;
+}
+
+google-chart {
+    border-radius: 25px;
+}
+
+body{
+    background-color:#f5f5f5;
+}

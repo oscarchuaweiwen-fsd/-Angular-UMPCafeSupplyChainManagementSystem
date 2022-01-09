@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { ArrayType } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -23,7 +24,7 @@ export class AdminTrackingPageComponent implements OnInit {
   val2 = 0;
   productInfo!: any;
   id: any;
-  constructor(private fs: AngularFirestore, private fns: AngularFireFunctions) {
+  constructor(private fs: AngularFirestore, private fns: AngularFireFunctions,private http:HttpClient) {
     this.fs
       .collection('Admin')
       .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
@@ -92,25 +93,39 @@ export class AdminTrackingPageComponent implements OnInit {
   }
 
   async delete(id: any, uid: any) {
+    console.log(id,uid)
     this.id1 = uid;
     this.stripe = await loadStripe(
       'pk_test_51JWyo0FAyW0TeHuLxronXkW18xbGcUCeGeOnk0CCq3W6Kl8gZ3OViSOqMctnmuMTptcchsU1ZsieUf4LAMHCfwxu00Hd2Nl8Rz'
-    );
+      );
 
-    const createCheckoutSession = this.fns.httpsCallable('cancelPayment');
-    createCheckoutSession({
-      uid: id,
-    }).subscribe((result) => {
-      if (result.status == 'canceled') {
-        this.fs
+
+      this.http.post('https://UMP-Supply-Chain.cb-1-8-1-4-0-os.repl.co/cancelPayment',{uid:id}).subscribe((res:any)=>{
+        console.log(res)
+        if(res?.status == 'canceled'){
+                  this.fs
           .collection('Admin')
           .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
           .collection('payment')
           .doc(this.id1)
           .delete();
-      }
-    });
-    console.log(uid);
+        }
+      })
+    
+    // const createCheckoutSession = this.fns.httpsCallable('cancelPayment');
+    // createCheckoutSession({
+    //   uid: id,
+    // }).subscribe((result) => {
+    //   if (result.status == 'canceled') {
+    //     this.fs
+    //       .collection('Admin')
+    //       .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
+    //       .collection('payment')
+    //       .doc(this.id1)
+    //       .delete();
+    //   }
+    // });
+    // console.log(uid);
   }
 
   async updateInfoInv(x: any) {

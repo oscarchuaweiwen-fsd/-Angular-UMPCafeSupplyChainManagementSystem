@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { loadStripe } from '@stripe/stripe-js';
 import { AngularFireFunctions } from '@angular/fire/functions';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'app-admin-cart-page',
   templateUrl: './admin-cart-page.component.html',
@@ -70,7 +72,8 @@ export class AdminCartPageComponent implements OnInit {
     private fs: AngularFirestore,
     private router: Router,
     private fns: AngularFireFunctions,
-    private aR: ActivatedRoute
+    private aR: ActivatedRoute,
+    private http: HttpClient
   ) {
     this.fs
 
@@ -281,28 +284,29 @@ export class AdminCartPageComponent implements OnInit {
     category1: any,
     product: any
   ) {
-    console.log(category1, product);
-    this.isGettingCheckout = true;
-
-    this.stripe = await loadStripe(
-      'pk_test_51JWyo0FAyW0TeHuLxronXkW18xbGcUCeGeOnk0CCq3W6Kl8gZ3OViSOqMctnmuMTptcchsU1ZsieUf4LAMHCfwxu00Hd2Nl8Rz'
-    );
+    console.log(compname1);
 
     this.tracking_number = `UMPSC${
       Math.floor(Math.random() * 19999999) + 10000000
     }MY`;
-    const createCheckoutSession = this.fns.httpsCallable('stripeCheckout');
-    createCheckoutSession({
-      productname: finalProduct,
-      quantity: quantity1,
-      amount: finalPrice,
-      compname: compname1,
-      category: category1,
-      trackingnumber: this.tracking_number,
-    }).subscribe(async (result) => {
-      console.log({ result });
-      this.uid = result;
-      await this.fs
+    this.http
+      .post(
+        'https://UMP-Supply-Chain.cb-1-8-1-4-0-os.repl.co/create-checkout-session/',
+        {
+          compname: compname1,
+          finalPrice: finalPrice,
+          category1: category1,
+          product: product,
+          finalProduct: finalProduct,
+          quantity1: quantity1,
+          trackingnumber: this.tracking_number,
+        }
+      )
+      .subscribe(async(res:any) => {
+        console.log(res?.session);
+        let result = res?.session;
+        this.uid = result;
+          await this.fs
         .collection('Admin')
         .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
         .collection('payment')
@@ -331,6 +335,58 @@ export class AdminCartPageComponent implements OnInit {
         .then(function (result: { error: { message: any } }) {
           console.log(result.error.message);
         });
-    });
+      });
+
+    console.log(category1, product);
+    this.isGettingCheckout = true;
+
+    this.stripe = await loadStripe(
+      'pk_test_51JWyo0FAyW0TeHuLxronXkW18xbGcUCeGeOnk0CCq3W6Kl8gZ3OViSOqMctnmuMTptcchsU1ZsieUf4LAMHCfwxu00Hd2Nl8Rz'
+    );
+
+    // this.tracking_number = `UMPSC${
+    //   Math.floor(Math.random() * 19999999) + 10000000
+    // }MY`;
+    // const createCheckoutSession = this.fns.httpsCallable('stripeCheckout');
+    // createCheckoutSession({
+    //   productname: finalProduct,
+    //   quantity: quantity1,
+    //   amount: finalPrice,
+    //   compname: compname1,
+    //   category: category1,
+    //   trackingnumber: this.tracking_number,
+    // }).subscribe(async (result) => {
+    //   console.log({ result });
+    //   this.uid = result;
+    //   await this.fs
+    //     .collection('Admin')
+    //     .doc('oMWhzMQgufX3WpRQs9WsB4JmQFv2')
+    //     .collection('payment')
+    //     .doc(this.tracking_number)
+    //     .set({
+    //       productname: finalProduct,
+    //       quantity: quantity1,
+    //       compname: compname1,
+    //       amount: finalPrice,
+    //       status: 'unpaid',
+    //       uid: this.uid,
+    //       category: category1,
+    //       ordertimestamp: null,
+    //       preparetimestamp: null,
+    //       shiptimestamp: null,
+    //       completetimestamp: null,
+    //       receivedstatus: false,
+    //       ratingstatus: false,
+    //       trackingTotal:quantity1
+    //     });
+    //   localStorage.setItem('stripeCheckout', result);
+    //   this.stripe
+    //     .redirectToCheckout({
+    //       sessionId: result,
+    //     })
+    //     .then(function (result: { error: { message: any } }) {
+    //       console.log(result.error.message);
+    //     });
+    // });
   }
 }
