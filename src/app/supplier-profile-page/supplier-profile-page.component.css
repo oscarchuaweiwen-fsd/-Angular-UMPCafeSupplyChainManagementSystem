@@ -1,6 +1,4 @@
-body{
-    color:#e6e6e6
-}
+
 
 form{
     height:80vh;
@@ -12,4 +10,18 @@ form{
 
 div{
     background-color:white;
+
+}
+
+.background{
+
+    display:flex;
+    flex-direction: column;
+    background-color:#84b0cf;
+    padding:20px;
+    border-radius:5px;
+}
+
+h5{
+    text-transform: uppercase;
 }

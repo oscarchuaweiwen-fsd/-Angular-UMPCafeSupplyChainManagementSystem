@@ -64,6 +64,7 @@ export class StudentHomePageComponent implements OnInit {
     console.log();
 
     this.fs.collection("Admin").doc("oMWhzMQgufX3WpRQs9WsB4JmQFv2").collection("trackinghistory").get().subscribe(res=>{
+      this.trackingHistory = [];
       res.forEach(res=>{
 
         console.log(res.id.split(" "))

@@ -13,3 +13,17 @@ form{
 div{
     background-color:white;
 }
+
+
+.background{
+
+    display:flex;
+    flex-direction: column;
+    background-color:#f7d782;
+    padding:20px;
+    border-radius:5px;
+}
+
+h5{
+    text-transform: uppercase;
+}

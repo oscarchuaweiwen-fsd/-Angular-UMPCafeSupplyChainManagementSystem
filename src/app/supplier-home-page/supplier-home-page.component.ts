@@ -1,11 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  // ...
+} from '@angular/animations';
 @Component({
   selector: 'app-supplier-home-page',
   templateUrl: './supplier-home-page.component.html',
   styleUrls: ['./supplier-home-page.component.css'],
+  animations:[
+    trigger('popOverState', [
+      state('show',style({
+        transform:'scale(1)'
+      })),
+      state('hide',style({
+        transform:'scale(1.2)'
+      })),
+      transition('show=>hide',animate('600ms ease-out')),
+      transition('hide=>show',animate('600ms ease-in'))
+    ]),
+
+   
+  ]
 })
 export class SupplierHomePageComponent implements OnInit {
   data: any;
@@ -20,6 +41,7 @@ export class SupplierHomePageComponent implements OnInit {
   topSalesOption:any;
   product: any[]=[];
   height:any="300";
+  show:any=true;
   constructor(private fs: AngularFirestore, private fa: AngularFireAuth) {
     // Stock of the product data chart
 
@@ -62,8 +84,9 @@ export class SupplierHomePageComponent implements OnInit {
             res.payload.doc.data().totalSale,
           ];
           console.log(array)
-
-          this.topSalesChartData.push(array)
+          if(res.payload.doc.data().totalSale>0){
+            this.topSalesChartData.push(array)
+          }
         })
       });
     })
@@ -103,4 +126,13 @@ export class SupplierHomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+
+  get stateName(){
+    return this.show? 'show' : 'hide'
+  }
+
+  toggle(){
+    this.show = !this.show
+  }
 }

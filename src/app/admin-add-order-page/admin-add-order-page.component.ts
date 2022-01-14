@@ -42,15 +42,13 @@ export class AdminAddOrderPageComponent implements OnInit {
 
     this.fs.collection('Supplier').snapshotChanges().subscribe(data=>{
     
-
       data.map(data=>{
-          
       let compname = data.payload.doc.data();
         this.fs.collection('Supplier').doc(data.payload.doc.id).collection('menu').snapshotChanges().subscribe(res=>{
           
           res.map(res=>{
             if(res.type == 'added'){
-             
+              
               let obj = {
                 compname: compname,
                 brand:res.payload.doc.data().brand,

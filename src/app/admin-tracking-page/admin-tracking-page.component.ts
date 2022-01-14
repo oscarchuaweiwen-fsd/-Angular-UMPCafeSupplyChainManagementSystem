@@ -143,7 +143,7 @@ export class AdminTrackingPageComponent implements OnInit {
 
                 if(res.data().category === x.data.category){
                   console.log(res.data());
-                  let newTotal = res.data().ratingTotal + 1;
+                  let newTotal = res.data().totalSale + x.data.quantity;
                   this.fs.collection('Supplier').doc(id).collection('menu').doc(res.id).update({totalSale:newTotal})
                 }
               })

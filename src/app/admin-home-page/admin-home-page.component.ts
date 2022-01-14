@@ -58,7 +58,7 @@ export class AdminHomePageComponent implements AfterViewInit {
   public barChartPlugins = [];
 
   public barChartData: any = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Unit' }
+    { data: [], label: 'Unit' }
   ];
 
 

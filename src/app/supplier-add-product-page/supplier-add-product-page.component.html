@@ -1,14 +1,15 @@
 
 <form action="" [formGroup]="addProductForm">
-    <div>
-        <input type="text" pInputText  placeholder="brand" formControlName="brand"/>
+    <div class="flex">
+        <div class="first">
+            <input type="text" pInputText  placeholder="brand" formControlName="brand"/>
+        </div>
+        <div><input type="text" pInputText  placeholder="category" formControlName="category"/></div>
+        <div>    
+            <input type="text" pInputText  placeholder="quantity" formControlName="quantity"/></div>
+        <div>    <input type="text" pInputText  placeholder="price" formControlName="price"/></div>
+        <button mat-raised-button (click)="add()">Add</button>
     </div>
-    <div><input type="text" pInputText  placeholder="category" formControlName="category"/></div>
-    <div>    
-        <input type="text" pInputText  placeholder="quantity" formControlName="quantity"/></div>
-    <div>    <input type="text" pInputText  placeholder="price" formControlName="price"/></div>
-
-
+   
 
 </form>
-<button mat-raised-button (click)="add()">Add</button>

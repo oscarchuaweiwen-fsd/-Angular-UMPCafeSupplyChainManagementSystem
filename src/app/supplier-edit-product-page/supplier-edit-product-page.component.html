@@ -1,14 +1,37 @@
-
 <form action="" [formGroup]="editProductForm">
+  <div class="flex">
     <div>
-        <input type="text" pInputText  placeholder="brand" formControlName="brand"/>
+      <input
+        type="text"
+        pInputText
+        placeholder="brand"
+        formControlName="brand"
+      />
     </div>
-    <div><input type="text" pInputText  placeholder="category" formControlName="category"/></div>
-    <div>    
-        <input type="text" pInputText  placeholder="quantity" formControlName="quantity"/></div>
-    <div>    <input type="text" pInputText  placeholder="price" formControlName="price"/></div>
-
-
-
+    <div>
+      <input
+        type="text"
+        pInputText
+        placeholder="category"
+        formControlName="category"
+      />
+    </div>
+    <div>
+      <input
+        type="text"
+        pInputText
+        placeholder="quantity"
+        formControlName="quantity"
+      />
+    </div>
+    <div>
+      <input
+        type="text"
+        pInputText
+        placeholder="price"
+        formControlName="price"
+      />
+    </div>
+    <button mat-raised-button (click)="edit()">Update</button>
+  </div>
 </form>
-<button mat-raised-button (click)="edit()">Update</button>

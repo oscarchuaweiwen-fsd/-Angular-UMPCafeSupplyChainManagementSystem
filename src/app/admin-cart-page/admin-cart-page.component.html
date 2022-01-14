@@ -2,7 +2,7 @@
 
 
 <div style="width:80%; margin:auto">
-    <div class="title">
+    <div class="title" [ngStyle]="{'margin-left':'-5rem'}">
         <h4>Shopping Cart</h4>
     </div>
     <div class="card" >
@@ -13,9 +13,7 @@
     
     <tr>
     
-    <th style="width: 3rem">
-    
-    </th>
+   
     <th>Company Name</th>
     
     <th>Product</th>
@@ -40,20 +38,7 @@
     
     <tr>
     
-    <td>
-    
-    <!-- <p-tableCheckbox
-    
-    [value]="product"
-    
-    (click)="info(product, rowIndex,e,$event)"
-    
-    #e
-    
-    ></p-tableCheckbox> -->
-    
-    
-    </td>
+   
     
     <td>{{product.compname}}</td>
     

@@ -47,13 +47,16 @@ mat-grid-tile:hover{
 .container{
         display:flex;
         justify-content:space-between;
+        gap:100px;
+        align-items:center
 }
 
 .menu{
         display:flex;
         flex-wrap:wrap;
-        gap:10px;
+        gap:100px;
         justify-content:space-between;
+        
 }
 
 @-webkit-keyframes bounce-in-top {

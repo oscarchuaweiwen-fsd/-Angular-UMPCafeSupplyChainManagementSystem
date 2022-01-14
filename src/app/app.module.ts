@@ -191,7 +191,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
     VirtualScrollerModule,
     OverlayPanelModule,
     ChartModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,

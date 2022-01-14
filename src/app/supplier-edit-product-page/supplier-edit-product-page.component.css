@@ -1,0 +1,18 @@
+div{
+    margin:10px;
+    width:max-content;
+}
+
+.flex{
+    display:flex;
+    flex-direction:column;
+}
+
+button{
+    margin-top:10px;
+    margin-bottom:-20px;
+}
+
+.first{
+    margin-top:-10px;
+}

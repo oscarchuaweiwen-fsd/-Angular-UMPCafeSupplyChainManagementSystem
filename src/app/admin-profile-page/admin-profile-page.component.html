@@ -1,25 +1,31 @@
 <body>
   <app-adminnavbarpage></app-adminnavbarpage>
-  <div *ngIf="asS.isLoading | async" class="loader-container">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </div>
-  <div class="form">
+  <div>
+  
     <form action="" [formGroup]="form">
-      <h5>Profile - {{ asS.name?.username }}</h5>
-      <mat-form-field appearance="standard" id="">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" [ngModel]='asS.name?.username' value={{asS.name?.username}}/>
-      </mat-form-field>
-      <mat-form-field appearance="standard" id="">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="email" [ngModel]='asS.name?.email' value={{asS.name?.email}}>
-      </mat-form-field>
-      <mat-form-field appearance="standard" id="">
-        <mat-label>Phone</mat-label>
-        <input matInput formControlName="phone" [ngModel]='asS.name?.phone' value={{asS.name?.phone}}/>
-      </mat-form-field>
+      <div class="background">
+        <h5>My Profile - {{adminInfo?.username}}</h5>
 
-      <button mat-raised-button (click)="update()" routerLink="/adminprofile">Update</button>
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Student Name</mat-label>
+            <input matInput placeholder="Student Name" value={{adminInfo?.username}} formControlName="studname" #c>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput placeholder="Phone Number" value={{adminInfo?.phone}} formControlName="phone" #p>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email" value={{adminInfo?.email}} formControlName="email" #e>
+          </mat-form-field>
+   
+       <button mat-raised-button (click)="update(c,p,e)">Update</button>
+      </div>
+        
     </form>
-  </div>
+</div>
+
+<p-toast></p-toast>
 </body>

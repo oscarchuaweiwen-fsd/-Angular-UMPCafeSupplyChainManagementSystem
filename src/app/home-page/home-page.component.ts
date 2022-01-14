@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { of } from 'rxjs';
 import { from, Observable } from 'rxjs';
 import { map, switchAll, switchMap } from 'rxjs/operators';
@@ -22,7 +23,7 @@ export class HomePageComponent implements OnInit {
   user: any;
 
   // calling api
-  constructor(private fb: FormBuilder, private service: AuthService) {
+  constructor(private fb: FormBuilder, private service: AuthService,private messageService: MessageService) {
     this.form = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -59,9 +60,21 @@ export class HomePageComponent implements OnInit {
   // login function
   async login() {
     console.log(this.form);
-    await this.service.login(this.form.value.email, this.form.value.password);
+    const result = await this.service.login(this.form.value.email, this.form.value.password);
 
     // validation of homepage
+    console.log(await this.service.getStudentStatus());
+
+    const studentStatus = await this.service.getStudentStatus();
+    const supplierStatus = await this.service.getSupplierStatus();
+    console.log(studentStatus,supplierStatus);
+    if(!studentStatus ) {
+      this.messageService.add({key: 'myKey1',severity:'error', summary:'Permission Info', detail:'Please contact the administrator to approve your status!'});
+    }
+
+    if(!supplierStatus) {
+      this.messageService.add({key: 'myKey2',severity:'error', summary:'Permission Info', detail:'Please contact the administrator to approve your status!'});
+    }
 
     if (this.service.emailVerified === false) {
       this.form.setErrors({
@@ -73,6 +86,7 @@ export class HomePageComponent implements OnInit {
       console.log("wrong password ts")
       this.form.setErrors({ wrongpassword: true, notregister: false });
     } else if (this.service.userVerified === false) {
+      console.log("object");
       this.form.setErrors({ notregister: true, wrongpassword: false });
     }
   }

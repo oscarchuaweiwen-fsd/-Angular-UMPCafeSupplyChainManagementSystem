@@ -1,6 +1,8 @@
 <app-student-navbar-page></app-student-navbar-page>
 <div>
+  
     <form action="" [formGroup]="updateProfile">
+      <div class="background">
         <h5>My Profile - {{supplierInfo?.name}}</h5>
 
         <mat-form-field class="example-full-width" appearance="outline">
@@ -19,5 +21,10 @@
           </mat-form-field>
    
        <button mat-raised-button (click)="update(c,p,e)">Update</button>
+      </div>
+        
     </form>
 </div>
+
+
+<p-toast></p-toast>

@@ -44,8 +44,8 @@ export class SupplierProductPageComponent implements OnInit {
   openNew() {
     const ref = this.dD.open(SupplierAddProductPageComponent, {
       header: 'Product Details',
-      width: '70%',
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      width: 'max-content',
+      contentStyle: { 'max-height': 'max-content', overflow: 'auto' },
       baseZIndex: 10000,
     });
 
@@ -63,8 +63,8 @@ export class SupplierProductPageComponent implements OnInit {
   editProduct(product:any){
     const ref = this.dD.open(SupplierEditProductPageComponent, {
       header: 'Edit Product Details',
-      width: '70%',
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      width: 'max-content',
+      contentStyle: { 'max-height': 'max-content', overflow: 'auto' },
       baseZIndex: 10000,
       data:product
     });

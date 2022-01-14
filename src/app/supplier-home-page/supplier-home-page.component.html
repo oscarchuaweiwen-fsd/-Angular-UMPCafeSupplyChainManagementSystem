@@ -2,16 +2,18 @@
 
 <!-- Stock of the product, Top Product sold,Tracking Status, Order Status -->
 <body>
-  <div class="flex">
-    <div class="item">
-      <google-chart [type]="stockType" [data]="stockChartData" [title]="stock" *ngIf="stockChartData.length>0" [options]="stockOption" style="width: 100%;" [height]="height"></google-chart>
+  <div class="flex" [ngStyle]="{'padding-top':'50px'}">
+    <div class="item" [@popOverState]="stateName" (mouseenter)="toggle()" (mouseleave)="toggle()">
+      <google-chart [type]="stockType" [data]="stockChartData" [title]="stock" *ngIf="stockChartData.length > 0"   [options]="stockOption" style="width: 100%;" [height]="height"></google-chart>
+      <p *ngIf="stockChartData.length === 0">No data is available for chart. <br/>Please add your stock data to enable it.</p>
     </div>
-    <div class="item">
-      <google-chart [type]="topSalesType" [data]="topSalesChartData" [title]="topSales" *ngIf="topSalesChartData.length>0" [options]="stockOption" style="width: 100%;" [height]="height"></google-chart>
+    <div class="item" [@popOverState]="stateName" (mouseenter)="toggle()" (mouseleave)="toggle()">
+      <google-chart [type]="topSalesType" [data]="topSalesChartData" [title]="topSales" *ngIf="topSalesChartData.length > 0"  [options]="stockOption" style="width: 100%;" [height]="height"></google-chart>
+      <p *ngIf="topSalesChartData.length === 0">No data is available for chart. <br/>Please sell your stock to enable it.</p>
     </div>
   </div>
   
-  <div>
+  <div class="position" [ngStyle]="{'padding-top':'50px'}">
     <p-card>
       You have {{product.length}} order items needed to be approved
   

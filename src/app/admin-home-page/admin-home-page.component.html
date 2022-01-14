@@ -56,7 +56,7 @@
     </div>
 
     <div class="o4" >
-        <h5 [ngStyle]="{'position':'sticky'}">Quantity in Hand <br> <h6 [ngStyle]="{'color':'grey'}">These ingredients are low stock</h6></h5>
+        <h5 [ngStyle]="{'position':'sticky','margin-top':'10px'}">Quantity in Hand <br> <h6 [ngStyle]="{'color':'grey'}">These ingredients are low stock</h6></h5>
 
         <ul class="list-group" *ngFor="let x of inventory">
             <li class="list-group-item" *ngIf="x.data.lowestmargin > x.data.quantity">
@@ -73,7 +73,7 @@
 <div>
     
 </div>
-<div class="o5">
+<div class="o5" [ngStyle]="{'margin-top':'10px','margin-bottom':'20px'}">
     <h4 [ngStyle]="{'float': 'left','margin':'15px'}">Monthly Sales</h4>
     <p-dropdown [options]="months" [ngStyle]="month" #p [ngStyle]="{'float': 'right','margin':'10px'}" (onHide)="displayTop(p.value)"></p-dropdown>
 
@@ -81,7 +81,7 @@
 </div>
 
 
-<div class="o6">
+<div class="o6" [ngStyle]="{'position':'relative','height':'96.6','width':'96.6vw','margin-top':'30px'}">
     <h4 [ngStyle]="{'float': 'left','margin':'15px'}">Number of Unit sold</h4>
     <div>
         <canvas baseChart 

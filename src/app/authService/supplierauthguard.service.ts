@@ -17,7 +17,7 @@ export class SupplierAuthGuard implements CanActivate{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> {
-    let isSupplier = await this.auth.getAdminStatus();
+    let isSupplier = await this.auth.getSupplierStatus();
     console.log(isSupplier);
     if (isSupplier == false) {
       this.router.navigateByUrl('');

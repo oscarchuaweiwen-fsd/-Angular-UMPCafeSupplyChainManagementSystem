@@ -21,3 +21,10 @@ google-chart {
 body{
     background-color:#f5f5f5;
 }
+
+.postition{
+    display:absolute;
+    bottom:0;
+
+    left:0;
+}

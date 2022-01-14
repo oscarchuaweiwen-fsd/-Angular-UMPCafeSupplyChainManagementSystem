@@ -12,6 +12,9 @@
         <p>Quantity: {{data.quantity}}</p>
         <p>Total: RM{{data.total | number:'.2'}}</p>
         <p>Tracking Number: {{data.trackingnumber}}</p>
+        <p>Product Ordered Time: {{data.ordertimestamp}}</p>
+        <p>Product Order Completed Time: {{data.completetimestamp}}</p>
+
         
 
         <button mat-raised-button [routerLink]="['/adminviewhistory/',data.category]">Back</button>

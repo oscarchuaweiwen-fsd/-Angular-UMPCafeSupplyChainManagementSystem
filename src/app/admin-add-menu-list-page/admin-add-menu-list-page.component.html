@@ -33,15 +33,15 @@
 
         
 
-        <button mat-raised-button (click)="addNewIngredient(i,iq)">Add</button>
+        <button mat-raised-button (click)="addNewIngredient(i,iq)" [ngStyle]="{'margin-top':'5px'}">Add Ingredient to the list</button>
 
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="let x of ingredient;let i=index">{{x|json}} <button mat-raised-button (click)="delete(i)">Delete</button></li>
+            <li [ngStyle]="{'display':'flex'}" class="list-group-item" *ngFor="let x of ingredient;let i=index" [ngStyle]="{'margin-top':'5px'}"><ol><li>Ingredient Name:{{x.ingredient}} <br> Quantity of Ingredient: {{x.ingredientQuantity}}</li></ol><button [ngStyle]="{'margin-top':'5px','margin-left':'13px'}" mat-raised-button (click)="delete(i)">Delete</button></li>
             
           </ul>
     </div>
 
-    <button mat-raised-button (click)="add()">Confirm</button>
+    <button mat-raised-button (click)="add()" [ngStyle]="{'margin-top':'20px','text-align':'center'}">Confirm</button>
 </form>
 
 <!-- 
