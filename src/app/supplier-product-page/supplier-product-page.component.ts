@@ -58,8 +58,6 @@ export class SupplierProductPageComponent implements OnInit {
     });
   }
 
-  cancel() {}
-
   editProduct(product:any){
     const ref = this.dD.open(SupplierEditProductPageComponent, {
       header: 'Edit Product Details',

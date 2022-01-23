@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AuthService } from '../authService/auth.service';
 
 @Component({
   selector: 'app-supplier-add-product-page',
@@ -15,7 +16,8 @@ export class SupplierAddProductPageComponent implements OnInit {
     public ref: DynamicDialogRef,
     private fb: FormBuilder,
     private fs: AngularFirestore,
-    private fa: AngularFireAuth
+    private fa: AngularFireAuth,
+    private auth:AuthService
   ) {
     this.addProductForm = fb.group({
       brand: [],
@@ -23,14 +25,18 @@ export class SupplierAddProductPageComponent implements OnInit {
       price: [],
       quantity: [],
     });
+
+    this.fa.authState.subscribe(res=>{
+      console.log(res?.uid);
+    })
   }
 
   ngOnInit(): void {}
 
   add() {
-    this.ref.close("success")
+  
     this.fa.authState.subscribe((res) => {
-
+      console.log(res?.uid)
       this.fs
         .collection('Supplier')
         .doc(res?.uid)
@@ -45,7 +51,7 @@ export class SupplierAddProductPageComponent implements OnInit {
           ratingTotal:0,
           totalSale:0
         }).then(() => {
-          
+          this.ref.close("success")
         });
     });
   }

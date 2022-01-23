@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Router } from '@angular/router';
 import {
   ConfirmationService,
   MessageService,
@@ -31,7 +33,7 @@ export class AdminPermissionPageComponent implements OnInit {
 
   constructor(private fs:AngularFirestore, private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private primengConfig: PrimeNGConfig) {
+    private primengConfig: PrimeNGConfig,private fa:AngularFireAuth,private router:Router) {
 
     //Student
     this.fs.collection('Student').snapshotChanges().subscribe(data => {
@@ -125,6 +127,7 @@ export class AdminPermissionPageComponent implements OnInit {
         });
 
         this.fs.collection('Student').doc(id).delete();
+
       },
       reject: () => {
         this.messageService.add({
