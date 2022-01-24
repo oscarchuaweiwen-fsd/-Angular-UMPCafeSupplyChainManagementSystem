@@ -67,7 +67,7 @@ export class AdminCartPageComponent implements OnInit {
   productprice: any;
   uid: any;
   tracking_number: any;
-
+  fullurl:any;
   constructor(
     private fs: AngularFirestore,
     private router: Router,
@@ -289,6 +289,9 @@ export class AdminCartPageComponent implements OnInit {
     this.tracking_number = `UMPSC${
       Math.floor(Math.random() * 19999999) + 10000000
     }MY`;
+    
+    this.fullurl = window.location.protocol + window.location.host;
+
     this.http
       .post(
         'https://UMP-Supply-Chain.cb-1-8-1-4-0-os.repl.co/create-checkout-session/',
@@ -300,6 +303,7 @@ export class AdminCartPageComponent implements OnInit {
           finalProduct: finalProduct,
           quantity1: quantity1,
           trackingnumber: this.tracking_number,
+          fullurl:this.fullurl
         }
       )
       .subscribe(async(res:any) => {

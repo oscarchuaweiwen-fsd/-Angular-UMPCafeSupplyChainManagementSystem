@@ -18,7 +18,7 @@ export class StudentCartPageComponent implements OnInit {
   stripe: any;
   tracking_number: any;
   studentname: any;
-
+  fullurl:any;
   constructor(
     private fs: AngularFirestore,
     private fa: AngularFireAuth,
@@ -110,7 +110,7 @@ export class StudentCartPageComponent implements OnInit {
     this.stripe = await loadStripe(
       'pk_test_51JWyo0FAyW0TeHuLxronXkW18xbGcUCeGeOnk0CCq3W6Kl8gZ3OViSOqMctnmuMTptcchsU1ZsieUf4LAMHCfwxu00Hd2Nl8Rz'
     );
-
+    this.fullurl = window.location.protocol + window.location.host;
     this.tracking_number = `UMPSCCafe${Math.floor( Math.random() * 19999999 ) + 10000000}MY`;
     this.http.post('https://UMP-Supply-Chain.cb-1-8-1-4-0-os.repl.co/student-create-checkout-payment', {
       quantity: product.data.quantity,
@@ -118,7 +118,8 @@ export class StudentCartPageComponent implements OnInit {
       amount: product.data.data.data.price,
       trackingnumber:this.tracking_number,
       compname:product.data.data.data.compname,
-      studentname:this.studentname
+      studentname:this.studentname,
+      fullurl:this.fullurl
     }).subscribe((res:any)=>{
 
       this.stripe

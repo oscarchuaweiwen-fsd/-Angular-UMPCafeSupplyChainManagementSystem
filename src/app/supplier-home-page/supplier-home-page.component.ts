@@ -52,6 +52,7 @@ export class SupplierHomePageComponent implements OnInit {
         .collection('menu')
         .snapshotChanges()
         .subscribe((res) => {
+          this.stockChartData = []
           res.map(async (res) => {
             let array = [
               res.payload.doc.data().brand,
@@ -78,7 +79,9 @@ export class SupplierHomePageComponent implements OnInit {
     // Top product sold
     this.fa.authState.subscribe(res=>{
       this.fs.collection("Supplier").doc(res?.uid).collection("menu").snapshotChanges().subscribe(res=>{
+        this.topSalesChartData = []
         res.map(res=>{
+          
           let array = [
             res.payload.doc.data().brand,
             res.payload.doc.data().totalSale,
